@@ -1,63 +1,60 @@
-# 🐳 Quant Systems & Trading Research | 高阶量化系统与交易研究
+# 🐳 Quant Systems & Trading Research | AI 时代 7 天速通量化系统
 
 <p align="center">
-  <b>🌊 从摸鱼小白鲸到深海量化巨鲸 · 跨 45 家顶尖机构 · 21 类量化岗位 · 14 周硬核通关指南</b><br>
-  <i>"Don't just backtest in fair weather. Dive into the deep trench where order books crack and spreads bleed."</i>
+  <b>🌊 从摸鱼小白鲸到深海量化巨鲸 · 跨 45 家顶尖机构 · 21 类量化岗位 · AI 时代 7 天速通实战台</b><br>
+  <i>"Don't spend 2 years reading theory. Master the real quant production pipeline in a 7-day deterministic sprint."</i>
 </p>
 
 <p align="center">
+  <img src="https://img.shields.io/badge/Sprint-7_Days_Fast_Track-E8590C?style=flat-square" alt="7-Day Fast Track">
   <img src="https://img.shields.io/badge/Python-3.9%2B-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3.9+">
   <img src="https://img.shields.io/badge/C%2B%2B-17-00599C?style=flat-square&logo=c%2B%2B&logoColor=white" alt="C++17">
   <img src="https://img.shields.io/badge/Deterministic_Tests-26%2F26_Passed-success?style=flat-square&logo=githubactions&logoColor=white" alt="Tests Passed">
   <img src="https://img.shields.io/badge/Coverage-21_Role_Families-orange?style=flat-square" alt="21 Quant Roles">
   <img src="https://img.shields.io/badge/Verified_Institutions-45_Firms-blueviolet?style=flat-square" alt="45 Institutions">
   <img src="https://img.shields.io/badge/Mascot-DeepSeek_Big_Whale_%F0%9F%90%B3-blue?style=flat-square" alt="DeepSeek Whale">
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="MIT License">
 </p>
 
 ---
 
 ## 🧭 快速传送门 / Quick Navigation
 
-- [🐳 项目起源：告别空中楼阁](#-项目起源告别空中楼阁)
+- [🐳 为什么用 7 天就能速通量化核心？](#-为什么用-7-天就能速通量化核心)
 - [🎣 核心硬核实证与避坑大赏](#-核心硬核实证与避坑大赏)
 - [🌊 投研到撮合的深海全链路](#-投研到撮合的深海全链路)
-- [🚀 大肥鱼 14 周深海潜行通关路线图](#-大肥鱼-14-周深海潜行通关路线图一步一步通关)
+- [🚀 大肥鱼 7 天速通作战表（每天 1.5 小时）](#-大肥鱼-7-天速通作战表每天-15-小时一步步通关)
 - [🗺️ 21 类量化兵种作战地图与验收门禁](#️-21-类量化兵种作战地图与验收门禁)
-- [⚡ 战备检查：快速复跑指南](#-战备检查快速复跑指南)
-- [🌐 English Overview & Quickstart](#-english-overview--quickstart)
+- [⚡ 战备检查：1 分钟开箱复跑](#-战备检查1-分钟开箱复跑)
+- [🌐 English Overview & 7-Day Sprint](#-english-overview--7-day-sprint)
 
 ---
 
-## 🐳 项目起源：告别空中楼阁
+## 🐳 为什么用 7 天就能速通量化核心？
 
-很多同学初入量化，经常陷入两个极端：
-- **学术流“空中楼阁”**：因子 IC 很高，回测年化 80%，实盘一上线，发现**期货换月基差没扣除**、**撤单并发被交易所罚款**、**盘口序列断流直接死锁**。
-- **面试八股文死记硬背**：背了一堆 C++ 虚函数和 Python 装饰器，一被问到“做市商明明赚了 3 块钱价差为什么净损益是负的？”、“除权除息数据如何做到 Point-In-Time 零泄露？”，瞬间哑火。
+过去学量化动辄半年起步，不是因为数学太难，而是**反馈闭环太慢 + 没人告诉你真实产线怎么踩坑**。
 
-本项目核查了 **45 家头部量化私募、外资做市商、公募对冲基金、券商与交易所**的真实公开岗位要求，收录了 **76 条具名岗位与 41 条业务方向**。
-**我们不讲空洞理论，只按产线上的实际交付物（Deliverables）来教学与复验！**
+在 AI 时代（配合 `Claude 5.5` / `Gemini 4` / `GPT 6.1` 等前沿编程副驾），学习范式已经从“啃大部头教材”变成了**“可复现代码库 + 主动搞破坏触发报错 + AI 深度拷问”**。
+
+本项目核查了 **45 家头部量化私募、外资做市商、公募对冲基金、券商与交易所**的真实公开岗位要求，收录 **76 条具名岗位与 41 条业务方向**，浓缩成 **26 项确定性代码实验**——**每天 1.5~2 小时，7 天打穿从行情 PIT、投研前推、多资产定价到撮合执行与 C++ 低延迟的完整闭环！**（如需逐岗长线精修，仓库内 `docs/08-role-curriculum.md` 同步提供 14 周扩展深化课表。）
 
 ---
 
 ## 🎣 核心硬核实证与避坑大赏
 
-实验台所有代码均自带确定性复现测试（**26 项测试 100% 通过**，核心实验仅依赖 Python 标准库）：
+实验台所有代码均自带确定性复现测试（**26 项测试 100% 通过**，核心实验零第三方依赖，纯 Python 标准库即跑）：
 
 | 实验模块 | 现实中的“翻车现场” | 🐳 本实验台的确定性解法与铁证 |
 |:---|:---|:---|
 | **期货换月价差 (M1)** | 以为换月能赚 120 块，直接拼接两个合约日线。 | 验证发现 **120.00 元**纯属跨期基差假象。必须在合约级台账中剥离基差与真实持仓增益。 |
-| **做市微观损益 (M3)** | “我每笔都赚了 3 块钱盘口价差，怎么账面还亏了？” | 损益归因分解：捕获价差 **+3.00**，但库存逆向选择造成市值损失 **-5.50**，扣除手续费 **-0.60**，最终净亏 **-3.10**。 |
-| **PIT 盘口零泄露 (D1)** | 拿今天的收盘复权价回填上周的选股信号（未来信息穿越）。 | 时点版本化引擎：决策点仅可见当前时刻数据，历史修订严格按时点自愈（`缺失 -> 100 -> 80`）。 |
-| **订单撤单竞态 (E1)** | 发出撤单指令就当做已经撤销，结果交易所已经撮合成交。 | 订单幂等日志状态机：委托 100 股，撤单竞态下前序成交 60 股，成功撤单 40 股，准确计量 **70 bp** 执行差额（IS）。 |
-| **前推 ETF 验证 (R1)** | 样本内过拟合，一到样本外就回撤腰斩。 | 2019–2025 年无未来数据自适应向前推演，年化 **13.25%**（超越固定动量 9.85%）。 |
-| **C++ 亚纳秒价格档 (S1)** | 用 `std::map` 挂买卖五档，被高频穿透打成筛子。 | 连续数组平铺内存，p50 延迟达 **0.61 ns**，相比红黑树（**57.99 ns**）快了近 100 倍！ |
+| **做市微观损益 (M3)** | “我每笔都赚了 3 块钱盘口价差，怎么账面还亏了？” | 损益归因分解：捕获价差 **+3.00**，但库存逆向选择造成市值缩水叠加费率，最终净亏 **−3.10**。 |
+| **PIT 盘口零泄露 (D1)** | 拿今天的收盘复权价回填上周的选股信号（未来信息穿越）。 | 时点版本化引擎：决策点仅可见当前时刻数据，历史修订严格按时点隔离（`缺失 -> 100 -> 80`）。 |
+| **订单撤单竞态 (E1)** | 发出撤单指令就当做已经撤销，结果交易所已经撮合成交。 | 订单幂等日志状态机：委托 100 股，撤单竞态下前序成交 60 股，成功撤单 40 股，准确计量 **70 bp** 执行差额（IS），二次回放新增事件精准为 **0**。 |
+| **前推 ETF 验证 (R1)** | 样本内过拟合，一到样本外就回撤腰斩。 | 2019–2025 年无未来数据自适应向前推演，年化 **13.25%**（最大回撤 **−35.16%**），超越固定 60 日动量（**9.85%**）。 |
+| **C++ 亚纳秒价格档 (S1)** | 用 `std::map` 挂买卖五档，被高频穿透打成筛子。 | 连续数组平铺内存，p50 延迟达 **0.61 ns**，相比红黑树（**57.99 ns**）快了近 **95 倍**！ |
 
 ---
 
 ## 🌊 投研到撮合的深海全链路
-
-真实的量化系统是一条严丝合缝的环形流水线：
 
 ```mermaid
 flowchart LR
@@ -74,68 +71,31 @@ flowchart LR
 
 ---
 
-## 🚀 大肥鱼 14 周深海潜行通关路线图（怎么一步一步学完全部内容）
+## 🚀 大肥鱼 7 天速通作战表（每天 1.5 小时，一步步通关）
 
-跟随这只硬核大肥鱼 🐳，从海面浅滩一路深潜到马里亚纳海沟：
+跟随这只硬核大肥鱼 🐳，用 **7 天高密度冲刺** 从海面直插量化核心腹地：
 
 ```
-       🌊 海面 (Weeks 1)        -> 探查 45 家机构 21 类兵种作战图
-      /
-    🐋 浅海区 (Weeks 2-4)      -> 因子无泄露前推、模型漂移检测与风险预算
-   /
- 🌊 暮光区 (Weeks 5-7)        -> 期货跨期换月、期权波动率重估与做市微观库存
-/
-⚡ 深渊区 (Weeks 8-10)       -> 盘口断流自愈、撤单并发竞态与四方保命对账
- 🚀 海沟核心 (Weeks 11-12)    -> 亚纳秒级 C++ 价格档内存布局、SRE 演练与 AI 探针
-     🏆 鲸跃龙门 (Weeks 13-14)   -> 生产级端到端结项答辩，拿到经得起代码级拷问的生产铁证！
+Day 1 🐟 浅滩摸底   -> 跑通 26 项测试 + 打开 catalog/index.html 锁定目标岗位主线
+Day 2 🐋 投研防穿   -> 复跑 ETF 真实前推 (R1) + 模型漂移自动拒单 (R2)
+Day 3 🎯 组合约束   -> 跑通受限二次规划优化 (P1)，算清换手摩擦与跟踪误差
+Day 4 🌊 多资产博弈 -> 拆穿期货 120 元换月基差 (M1)、期权重估 (M2) 与做市 −3.10 元亏损 (M3)
+Day 5 ⚡ 行情与撮合 -> 攻克 PIT 断流自愈 (D1)、撤单竞态 70bp 幂等回放 (E1) 与四方对账
+Day 6 🚀 极速与运维 -> 编译实测 C++17 0.61ns 价格档 (S1) + SRE 故障演练与 AI 告警巡检
+Day 7 🏆 鲸跃答辩   -> 把 evidence/*.json 喂给 AI 做 5 轮 Desk Head 压力拷问，产出简历级复盘
 ```
 
-### 阶段一：浅滩探索 · 摸清战壕（第 1 周）
-- **目标**：不打无准备之仗。搞懂 45 家机构在招什么人，每行代码在系统链路的哪一环。
-- **任务**：
-  1. 打开 [交互式岗位索引](catalog/index.html)，按机构、技术栈（C++、Python、FPGA、Kdb）进行多维筛选。
-  2. 精读 [岗位调研与技术选型](docs/01-jd-and-stack.md) 与 [量化看盘指南](docs/02-desk-guide.md)。
-- **交付物**：一份属于你自己的《目标岗位技能矩阵与攻坚路线图》。
+| 天数 | 冲刺主题 | 必跑命令 / 入口 | 当天验收成果（配合 AI 副驾） |
+|:---|:---|:---|:---|
+| **Day 1** | 行业全景与岗位定锚 | `python3 verify.py` · [`catalog/index.html`](catalog/index.html) | 跑通全部 26 项单测；从 45 家机构 21 类岗位里圈出最适合自己的 1~2 条主线 |
+| **Day 2** | 投研前推与模型漂移 | `python3 -m lab.research` · `python3 -m lab.model_drift` | 故意制造未来函数观察测试变红，让 AI 讲透样本外漂移拒单机制 |
+| **Day 3** | 组合优化与风控约束 | `python3 -m lab.portfolio_controls` | 对比受限与不受限组合权重差异，算清跟踪误差与双边换手成本 |
+| **Day 4** | 期货、期权与做市微观 | `python3 -m lab.multi_asset` · `python3 -m lab.valuation` | 剥离 120 元期货换月假利润；手拆做市 +3.00 价差却净亏 −3.10 的微观账本 |
+| **Day 5** | PIT 数据、执行与对账 | `python3 -m lab.data_plane` · `python3 -m lab.execution` | 演练盘口缺序号熔断与快照恢复；连续运行两次回放验证幂等性（新增事件=0） |
+| **Day 6** | 纳秒级 C++ 与 AI 巡检 | `python3 verify.py --market-data --cpp` · [`docs/04`](docs/04-systems-and-operations.md) | 实测连续数组 0.61 ns vs `std::map` 57.99 ns；设计确定性接口隔离下的 AI 运维诊断 |
+| **Day 7** | 模拟拷问与结项输出 | [`docs/10-capstone.md`](docs/10-capstone.md) · [`evidence/`](evidence/) | 把机器日志 JSON 喂给 `Claude 5.5` / `GPT 6.1` 模拟交易台主管 5 轮深挖，沉淀个人技术复盘 |
 
-### 阶段二：潜入中层 · 投研与风控内功（第 2–4 周）
-- **目标**：杜绝一切未来信息穿越，建立真正可证伪的投研体系。
-- **任务**：
-  1. 运行 `python3 -m lab.research`，复跑 [实验 R1 (真实行情前推)](docs/09-experiment-log.md#r1-真实行情前推)。
-  2. 运行 [实验 R2 (模型漂移)](docs/09-experiment-log.md#r2-模型漂移)，观察特征分布漂移时模型如何自动触发告警并拒绝预测。
-  3. 运行 [实验 P1 (约束组合)](docs/09-experiment-log.md#p1-约束组合与对账)，对比受限与不受限组合的换手摩擦与跟踪误差。
-- **交付物**：零未来函数渗透的年度前推报告 + 模型漂移拒绝判定日志。
-
-### 阶段三：深海博弈 · 多资产定价与做市微观（第 5–7 周）
-- **目标**：跨出单纯股票日线舒适区，攻坚期货、期权与微观做市。
-- **任务**：
-  1. 运行 `python3 -m lab.multi_asset`。
-  2. 搞懂 [实验 M1 (期货换月)](docs/09-experiment-log.md#m1-期货换月)：手算合约基差，把 120 元假收益从账本中剥离。
-  3. 攻坚 [实验 M2 (期权非线性重估)](docs/09-experiment-log.md#m2-期权压力重估)：反解 IV，验证 Put-Call Parity。
-  4. 领悟 [实验 M3 (做市损益分解)](docs/09-experiment-log.md#m3-做市损益)：手撕价差捕获、库存倾斜与滑点费率公式。
-- **交付物**：期货换月基差跟踪表 + 做市库存与损益归因计算器。
-
-### 阶段四：激流勇进 · 数据平面、执行与对账（第 8–10 周）
-- **目标**：面对真实线上故障——丢包、乱序、撤单竞态、账目不平。
-- **任务**：
-  1. 运行 `python3 -m lab.data_plane`，演练行情缺序号时主动熔断、快照恢复的自愈逻辑。
-  2. 运行 `python3 -m lab.execution`，连续执行两次订单回放，验证幂等性（第二次新增事件必须为 0）。
-  3. 执行四方对账（本地单、外部单、遗漏单、差异单），核算净值血缘。
-- **交付物**：幂等订单回放引擎 + 生产级对账异常报告。
-
-### 阶段五：海沟极速 · 高性能系统、SRE 与 AI 运维（第 11–12 周）
-- **目标**：压榨微秒与纳秒性能，构建无人值守的高可用防线。
-- **任务**：
-  1. 编译运行 [实验 S1 价格档基准](benchmarks/price_levels.cpp)：对比连续内存与树状结构在 Cache 命中上的本质差异。
-  2. 精读 [系统实验与运行手册](docs/04-systems-and-operations.md)，模拟数据中断重启与状态恢复。
-  3. 探索 AI 运维探针：如何在不破坏权威状态的前提下利用 Agent 进行日志归因与指标监控。
-- **交付物**：纳秒级性能测试基准报告 + 生产混沌演练复盘文档。
-
-### 阶段六：鲸跃龙门 · 端到端综合结项（第 13–14 周）
-- **目标**：将所有模块组装成完整的开源工业级量化作品集。
-- **任务**：
-  1. 参照 [结项与评分体系](docs/10-capstone.md) 选择 1 个主攻结项方向。
-  2. 形成可一键复验的代码仓库、完备的实证证据 JSON 与可视化看板。
-- **交付物**：能够直接放入简历、在顶级量化面试中让面试官眼前一亮的实战级结项项目！
+> 💡 **进阶深化**：7 天速通建立完整系统观后，可按 [`docs/08-role-curriculum.md`](docs/08-role-curriculum.md) 的 **14 周逐岗精修表**，针对目标岗位做深做透。
 
 ---
 
@@ -161,7 +121,7 @@ flowchart LR
 
 ---
 
-## ⚡ 战备检查：快速复跑指南
+## ⚡ 战备检查：1 分钟开箱复跑
 
 核心实验纯标准库实现，克隆即可开箱复跑！
 
@@ -182,15 +142,19 @@ python3 verify.py --market-data --cpp
 
 ---
 
-## 🌐 English Overview & Quickstart
+## 🌐 English Overview & 7-Day Sprint
 
 ### What is this?
-An open-source, reproducible 14-week quant systems curriculum covering **21 distinct quantitative roles** across **45 top-tier financial firms**. Designed around empirical desk deliverables rather than abstract theory.
+An open-source, reproducible **7-Day Quant Systems Fast-Track** (with an optional 14-week deep-dive syllabus) covering **21 distinct quantitative roles** audited across **45 top-tier financial firms**. Built for the AI-assisted engineering era: learn by breaking and fixing deterministic labs rather than passively reading textbooks.
 
-### Key Milestones
-- **Deterministic Verification**: 26 tests verified and passing with zero external dependencies.
-- **Microstructure & Accounting**: Eliminates the 120.00 futures roll artifact, dissects the -3.10 market making PnL deficit, and guards against point-in-time data leakage.
-- **Ultra Low-Latency**: Benchmarks flat array C++17 memory layouts yielding sub-nanosecond (0.61 ns) update times.
+### 7-Day Sprint Plan
+- **Day 1**: Run `verify.py` (26 passing tests) & filter target tracks via `catalog/index.html`.
+- **Day 2**: Walk-forward ETF validation (`R1`: 13.25% CAGR) & feature drift rejection (`R2`).
+- **Day 3**: Constrained portfolio optimization (`P1`) & turnover friction accounting.
+- **Day 4**: Futures 120.00 roll gap isolation (`M1`), options stress repricing (`M2`), market making −3.10 PnL breakdown (`M3`).
+- **Day 5**: Point-in-time feed recovery (`D1`), idempotent cancel-race execution replay (`E1`, 70 bps IS) & 4-way reconciliation.
+- **Day 6**: C++17 flat array vs `std::map` sub-nanosecond benchmark (`S1`: 0.61 ns vs 57.99 ns) & SRE/AI ops drills.
+- **Day 7**: AI Desk-Head code review over `evidence/*.json` & production-grade capstone write-up.
 
 ```bash
 git clone https://github.com/jakelihua/quant-systems-industry.git
@@ -201,6 +165,6 @@ python3 verify.py
 ---
 
 <p align="center">
-  <b>🌟 如果这个项目对你的量化之路有所启发，欢迎点个 Star 鼓励一下这只大肥鱼！🐳</b><br>
+  <b>🌟 如果这套 7 天速通实验台帮到了你，欢迎点个 Star 鼓励一下这只大肥鱼！🐳</b><br>
   <i>Empirically tested. Industrially verified. Dive deep and trade safe!</i>
 </p>
