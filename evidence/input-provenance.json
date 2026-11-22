@@ -1,0 +1,49 @@
+{
+  "sha256": "a28cd3d4d2ccd689b6c93186b76ca368a719117d558f9784ae2f03199b26c5b0",
+  "request_batches": 44,
+  "identical_overlaps": 248,
+  "first_date": "2015-07-01",
+  "last_date": "2025-12-31",
+  "aligned_sessions": 2555,
+  "calendar_ohlc_exceptions": [
+    "2015-03-27"
+  ],
+  "calendar_gaps_all_snapshot": {
+    "sh510300": {
+      "missing": [],
+      "extra": []
+    },
+    "sh510500": {
+      "missing": [
+        "2015-04-13",
+        "2015-04-14"
+      ],
+      "extra": []
+    },
+    "sh518880": {
+      "missing": [],
+      "extra": []
+    }
+  },
+  "moves_over_15pct_in_scope": {
+    "sh510300": [],
+    "sh510500": [],
+    "sh518880": []
+  },
+  "calendar": "腾讯上证综指日期代理",
+  "price_basis": "腾讯 ETF 前复权日线",
+  "secondary_audit": {
+    "source": "东方财富前复权",
+    "symbol": "sh510300",
+    "dates": [
+      "2025-12-24",
+      "2025-12-25",
+      "2025-12-26",
+      "2025-12-29",
+      "2025-12-30",
+      "2025-12-31"
+    ],
+    "ohlc_match": 6
+  },
+  "secondary_url": "https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=1.510300&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56&klt=101&fqt=1&beg=20251224&end=20251231"
+}

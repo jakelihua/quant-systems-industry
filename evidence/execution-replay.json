@@ -1,0 +1,48 @@
+{
+  "data_provenance": "synthetic; prices are not historical quotes",
+  "unique_persisted_events": 11,
+  "new_events_this_run": 0,
+  "desk": {
+    "cash_fen": 169890,
+    "positions": {
+      "ETF-X": 60
+    },
+    "quotes": {
+      "ETF-X": [
+        505,
+        507,
+        1201
+      ]
+    },
+    "orders": {
+      "A": {
+        "symbol": "ETF-X",
+        "side": 1,
+        "quantity": 100,
+        "limit": 503,
+        "arrival_mid_x2": 1000,
+        "filled": 60,
+        "status": "CANCELED",
+        "gross_fen": 30080,
+        "fee_fen": 30
+      }
+    },
+    "rejected": {
+      "STALE": "STALE_OR_MISSING_QUOTE",
+      "HALTED": "KILL_SWITCH"
+    },
+    "kill_switch": true,
+    "last_timestamp": 1203
+  },
+  "tca": {
+    "A": {
+      "arrival_mid_fen": 500.0,
+      "end_mid_fen": 506.0,
+      "filled_price_cost_fen": 80.0,
+      "fee_fen": 30,
+      "unfilled_opportunity_fen": 240.0,
+      "implementation_shortfall_fen": 350.0,
+      "implementation_shortfall_bps": 70.0
+    }
+  }
+}

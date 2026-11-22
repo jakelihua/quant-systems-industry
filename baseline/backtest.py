@@ -143,13 +143,15 @@ def rebalance(current, cash, weights, fee):
         raise ArithmeticError("Rebalance failed cash and cost reconciliation")
     return values, max(0.0, new_cash), changes, cost
 
-def simulate(dates, bars, method, lookback=60, bps=BASE_COST):
-    if method not in NAMES or not 1 <= lookback <= dates.index(START) - 1 or not 0 <= bps <= 100:
+def simulate(dates, bars, method, lookback=60, bps=BASE_COST, *, annual_lookbacks=None):
+    start_index = dates.index(START)
+    schedule = annual_lookbacks or {}
+    windows = [lookback, *schedule.values()]
+    if method not in NAMES or not all(1 <= w <= start_index - 1 for w in windows) or not 0 <= bps <= 100:
         raise ValueError("Invalid experiment parameters")
     units = dict.fromkeys(ETF, 0.0)
     cash, last_nav = 1.0, 1.0
     timeline, orders, signals = [], [], []
-    start_index = dates.index(START)
     for i in range(start_index, len(dates)):
         day, previous = dates[i], dates[i-1]
         trade_day = i == start_index or day[:7] != previous[:7]
@@ -157,9 +159,10 @@ def simulate(dates, bars, method, lookback=60, bps=BASE_COST):
         active = trade_day and (method not in ("hs300", "gold") or not timeline)
         if active:
             momentum = {}
+            window = schedule.get(int(day[:4]), lookback)
             if method in ("momentum", "no_gold"):
                 universe = ETF if method == "momentum" else ETF[:2]
-                weights, momentum = choose_target(bars, dates, i-1, lookback, universe)
+                weights, momentum = choose_target(bars, dates, i-1, window, universe)
             elif method == "equal":
                 weights = dict.fromkeys(ETF, 1 / 3)
             else:
@@ -177,7 +180,7 @@ def simulate(dates, bars, method, lookback=60, bps=BASE_COST):
                                    "adjusted_open": open_price[s], "notional": abs(change),
                                    "fee": abs(change) * bps / 10000, "pre_trade_nav": opening_nav})
             signals.append({"signal_date": previous, "trade_date": day,
-                            "lookback_anchor": dates[i-1-lookback] if momentum else "",
+                            "lookback_anchor": dates[i-1-window] if momentum else "",
                             **{f"momentum_{s[2:]}": momentum.get(s, "") for s in ETF},
                             **{f"weight_{s[2:]}": weights.get(s, 0.0) for s in ETF},
                             "cash_weight": 1 - sum(weights.values()),

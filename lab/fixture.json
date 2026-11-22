@@ -1,0 +1,147 @@
+[
+  {
+    "source_key": "quote:1",
+    "event": {
+      "at_ms": 1000,
+      "kind": "quote",
+      "data": {
+        "symbol": "ETF-X",
+        "bid": 499,
+        "ask": 501,
+        "exchange_ms": 998
+      }
+    }
+  },
+  {
+    "source_key": "strategy:1",
+    "event": {
+      "at_ms": 1006,
+      "kind": "submit",
+      "data": {
+        "id": "A",
+        "symbol": "ETF-X",
+        "side": 1,
+        "quantity": 100,
+        "limit": 503
+      }
+    }
+  },
+  {
+    "source_key": "venue:1",
+    "event": {
+      "at_ms": 1010,
+      "kind": "ack",
+      "data": {
+        "id": "A"
+      }
+    }
+  },
+  {
+    "source_key": "venue:2",
+    "event": {
+      "at_ms": 1020,
+      "kind": "fill",
+      "data": {
+        "id": "A",
+        "quantity": 40,
+        "price": 501,
+        "fee": 20
+      }
+    }
+  },
+  {
+    "source_key": "strategy:cancel:1",
+    "event": {
+      "at_ms": 1021,
+      "kind": "cancel_request",
+      "data": {
+        "id": "A"
+      }
+    }
+  },
+  {
+    "source_key": "venue:3",
+    "event": {
+      "at_ms": 1022,
+      "kind": "fill",
+      "data": {
+        "id": "A",
+        "quantity": 20,
+        "price": 502,
+        "fee": 10
+      }
+    }
+  },
+  {
+    "source_key": "venue:3",
+    "event": {
+      "at_ms": 1022,
+      "kind": "fill",
+      "data": {
+        "id": "A",
+        "quantity": 20,
+        "price": 502,
+        "fee": 10
+      }
+    }
+  },
+  {
+    "source_key": "venue:4",
+    "event": {
+      "at_ms": 1024,
+      "kind": "cancel_ack",
+      "data": {
+        "id": "A"
+      }
+    }
+  },
+  {
+    "source_key": "strategy:2",
+    "event": {
+      "at_ms": 1200,
+      "kind": "submit",
+      "data": {
+        "id": "STALE",
+        "symbol": "ETF-X",
+        "side": 1,
+        "quantity": 100,
+        "limit": 503
+      }
+    }
+  },
+  {
+    "source_key": "ops:halt",
+    "event": {
+      "at_ms": 1201,
+      "kind": "halt",
+      "data": {}
+    }
+  },
+  {
+    "source_key": "quote:2",
+    "event": {
+      "at_ms": 1202,
+      "kind": "quote",
+      "data": {
+        "symbol": "ETF-X",
+        "bid": 505,
+        "ask": 507,
+        "exchange_ms": 1201
+      }
+    }
+  },
+  {
+    "source_key": "strategy:3",
+    "event": {
+      "at_ms": 1203,
+      "kind": "submit",
+      "data": {
+        "id": "HALTED",
+        "symbol": "ETF-X",
+        "side": 1,
+        "quantity": 100,
+        "limit": 503
+      }
+    }
+  }
+]

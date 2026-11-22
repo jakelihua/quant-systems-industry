@@ -1,0 +1,71 @@
+{
+  "provenance": "synthetic",
+  "initial_top": {
+    "bid": 499,
+    "ask": 501,
+    "bid_size": 800,
+    "ask_size": 200,
+    "mid": 500.0,
+    "spread_ticks": 2,
+    "queue_imbalance": 0.6,
+    "microprice": 500.6
+  },
+  "delta_status": [
+    "APPLIED",
+    "DUPLICATE",
+    "SEQUENCE_GAP_OR_CONFLICT",
+    "WAITING_FOR_SNAPSHOT"
+  ],
+  "top_during_gap": null,
+  "recovered_top": {
+    "bid": 500,
+    "ask": 502,
+    "bid_size": 300,
+    "ask_size": 600,
+    "mid": 501.0,
+    "spread_ticks": 2,
+    "queue_imbalance": -0.3333333333333333,
+    "microprice": 500.6666666666667
+  },
+  "point_in_time": {
+    "columns": [
+      "decision_id",
+      "cutoff",
+      "feature"
+    ],
+    "naive_latest": [
+      [
+        "a",
+        "2025-04-09T09:00:00Z",
+        80
+      ],
+      [
+        "b",
+        "2025-04-11T09:00:00Z",
+        80
+      ],
+      [
+        "c",
+        "2025-04-16T09:00:00Z",
+        80
+      ]
+    ],
+    "as_known": [
+      [
+        "a",
+        "2025-04-09T09:00:00Z",
+        null
+      ],
+      [
+        "b",
+        "2025-04-11T09:00:00Z",
+        100
+      ],
+      [
+        "c",
+        "2025-04-16T09:00:00Z",
+        80
+      ]
+    ]
+  }
+}

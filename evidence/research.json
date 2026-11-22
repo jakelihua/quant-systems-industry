@@ -1,0 +1,431 @@
+{
+  "selection_rule": "Choose highest expanding-window net daily Sharpe, ties choose shortest window",
+  "candidate_windows": [
+    20,
+    60,
+    120
+  ],
+  "cost_bps_per_traded_side": 10,
+  "history": [
+    {
+      "forward_year": 2019,
+      "selected": 20,
+      "training_sharpe": {
+        "20": 0.07192849647428456,
+        "60": 0.0501671937480988,
+        "120": -0.040613913224158936
+      },
+      "last_training_date": "2018-12-28",
+      "adaptive": {
+        "sessions": 244,
+        "total": 0.28934302923790267,
+        "cagr": 0.30013100469369514,
+        "volatility": 0.21290251100677748,
+        "sharpe": 1.338456126388859,
+        "max_drawdown": -0.1460035211267604,
+        "peak": "2019-04-04",
+        "trough": "2019-05-06",
+        "annual_turnover": 11.351369941533886,
+        "cash_days": 42,
+        "daily_cost_total_nav_units": 0.012966946496815786
+      },
+      "fixed60": {
+        "sessions": 244,
+        "total": 0.11114633301286148,
+        "cagr": 0.11499252106173019,
+        "volatility": 0.20634651685088348,
+        "sharpe": 0.6308746232075211,
+        "max_drawdown": -0.19817753487913814,
+        "peak": "2019-04-04",
+        "trough": "2019-05-23",
+        "annual_turnover": 10.317551301157868,
+        "cash_days": 0,
+        "daily_cost_total_nav_units": 0.009655019456392524
+      },
+      "equal": {
+        "sessions": 244,
+        "total": 0.33570004175501733,
+        "cagr": 0.3484366380607795,
+        "volatility": 0.15799779893741492,
+        "sharpe": 1.9716509360128753,
+        "max_drawdown": -0.1064000093976375,
+        "peak": "2019-04-10",
+        "trough": "2019-06-06",
+        "annual_turnover": 0.4348896699598606,
+        "cash_days": 0,
+        "daily_cost_total_nav_units": 0.0004211743577256632
+      }
+    },
+    {
+      "forward_year": 2020,
+      "selected": 20,
+      "training_sharpe": {
+        "20": 0.43891749609906494,
+        "60": 0.20076287437618526,
+        "120": -0.07888995034542234
+      },
+      "last_training_date": "2019-12-31",
+      "adaptive": {
+        "sessions": 243,
+        "total": 0.5202019513125964,
+        "cagr": 0.543968267775299,
+        "volatility": 0.25201551688948987,
+        "sharpe": 1.8516705240778708,
+        "max_drawdown": -0.15005324345983528,
+        "peak": "2020-02-25",
+        "trough": "2020-03-17",
+        "annual_turnover": 9.325045325045334,
+        "cash_days": 16,
+        "daily_cost_total_nav_units": 0.013492897480208583
+      },
+      "fixed60": {
+        "sessions": 243,
+        "total": 0.2511010561003153,
+        "cagr": 0.2615248579491285,
+        "volatility": 0.2487949437541559,
+        "sharpe": 1.0593348680173644,
+        "max_drawdown": -0.16100386100386088,
+        "peak": "2020-02-25",
+        "trough": "2020-03-23",
+        "annual_turnover": 12.432012432012446,
+        "cash_days": 0,
+        "daily_cost_total_nav_units": 0.013493915515698895
+      },
+      "equal": {
+        "sessions": 243,
+        "total": 0.2470654898050304,
+        "cagr": 0.25730521012715957,
+        "volatility": 0.1917575881864685,
+        "sharpe": 1.290477552682561,
+        "max_drawdown": -0.14077056444082336,
+        "peak": "2020-02-24",
+        "trough": "2020-03-23",
+        "annual_turnover": 0.3311380150253703,
+        "cash_days": 0,
+        "daily_cost_total_nav_units": 0.0003930529779412614
+      }
+    },
+    {
+      "forward_year": 2021,
+      "selected": 20,
+      "training_sharpe": {
+        "20": 0.7908641943941342,
+        "60": 0.40288545164394546,
+        "120": 0.14973335687964875
+      },
+      "last_training_date": "2020-12-31",
+      "adaptive": {
+        "sessions": 243,
+        "total": -0.016594249101980707,
+        "cagr": -0.01720353422500187,
+        "volatility": 0.1564707643934768,
+        "sharpe": -0.0327559782971474,
+        "max_drawdown": -0.14273963656904742,
+        "peak": "2021-02-10",
+        "trough": "2021-12-07",
+        "annual_turnover": 14.505050505050518,
+        "cash_days": 44,
+        "daily_cost_total_nav_units": 0.026936804982046585
+      },
+      "fixed60": {
+        "sessions": 243,
+        "total": 0.06551840359902616,
+        "cagr": 0.06802576902745017,
+        "volatility": 0.18315374701991247,
+        "sharpe": 0.45097740815062615,
+        "max_drawdown": -0.16295471417965857,
+        "peak": "2021-02-10",
+        "trough": "2021-03-25",
+        "annual_turnover": 6.216006216006223,
+        "cash_days": 0,
+        "daily_cost_total_nav_units": 0.008076436230686233
+      },
+      "equal": {
+        "sessions": 243,
+        "total": 0.027292891055681112,
+        "cagr": 0.028317920585855694,
+        "volatility": 0.12076737704874364,
+        "sharpe": 0.29144483121837034,
+        "max_drawdown": -0.09594986697922736,
+        "peak": "2021-02-10",
+        "trough": "2021-03-09",
+        "annual_turnover": 0.27132888301576225,
+        "cash_days": 0,
+        "daily_cost_total_nav_units": 0.0003708634381707875
+      }
+    },
+    {
+      "forward_year": 2022,
+      "selected": 20,
+      "training_sharpe": {
+        "20": 0.6770498082197213,
+        "60": 0.40964937437464055,
+        "120": 0.22604854820409884
+      },
+      "last_training_date": "2021-12-31",
+      "adaptive": {
+        "sessions": 242,
+        "total": -0.04826932430878761,
+        "cagr": -0.0502130042322092,
+        "volatility": 0.1352331678126581,
+        "sharpe": -0.3134921322722235,
+        "max_drawdown": -0.1720321337495141,
+        "peak": "2022-06-28",
+        "trough": "2022-10-21",
+        "annual_turnover": 14.566029012310015,
+        "cash_days": 39,
+        "daily_cost_total_nav_units": 0.026377446511196043
+      },
+      "fixed60": {
+        "sessions": 242,
+        "total": -0.18654071654481263,
+        "cagr": -0.1934511275107429,
+        "volatility": 0.15171572714249373,
+        "sharpe": -1.340610206988766,
+        "max_drawdown": -0.23325524059400438,
+        "peak": "2022-03-09",
+        "trough": "2022-10-21",
+        "annual_turnover": 8.322256256140562,
+        "cash_days": 0,
+        "daily_cost_total_nav_units": 0.01002659165180314
+      },
+      "equal": {
+        "sessions": 242,
+        "total": -0.10743294118827029,
+        "cagr": -0.11161499282221499,
+        "volatility": 0.14735695743110533,
+        "sharpe": -0.7292835402668927,
+        "max_drawdown": -0.17055963792142004,
+        "peak": "区间起点",
+        "trough": "2022-04-26",
+        "annual_turnover": 0.409084563183831,
+        "cash_days": 0,
+        "daily_cost_total_nav_units": 0.0005177173871372272
+      }
+    },
+    {
+      "forward_year": 2023,
+      "selected": 20,
+      "training_sharpe": {
+        "20": 0.5705776913341988,
+        "60": 0.21802622420630013,
+        "120": 0.17510451067573982
+      },
+      "last_training_date": "2022-12-30",
+      "adaptive": {
+        "sessions": 242,
+        "total": -0.042365432687808124,
+        "cagr": -0.04407692086024695,
+        "volatility": 0.12098943397638885,
+        "sharpe": -0.3124355190210291,
+        "max_drawdown": -0.13220219688659507,
+        "peak": "2023-08-04",
+        "trough": "2023-12-26",
+        "annual_turnover": 16.64555279431314,
+        "cash_days": 17,
+        "daily_cost_total_nav_units": 0.028472684258323448
+      },
+      "fixed60": {
+        "sessions": 242,
+        "total": -0.05161665689822292,
+        "cagr": -0.05369128468750628,
+        "volatility": 0.11342946151866559,
+        "sharpe": -0.42992628054602755,
+        "max_drawdown": -0.13815344948266006,
+        "peak": "2023-02-01",
+        "trough": "2023-10-10",
+        "annual_turnover": 10.402820320175703,
+        "cash_days": 0,
+        "daily_cost_total_nav_units": 0.011412748067554296
+      },
+      "equal": {
+        "sessions": 242,
+        "total": -0.005951071690077359,
+        "cagr": -0.0061962203336226596,
+        "volatility": 0.09327196686540601,
+        "sharpe": -0.020194040368434654,
+        "max_drawdown": -0.10908473470278301,
+        "peak": "2023-04-17",
+        "trough": "2023-12-20",
+        "annual_turnover": 0.2505310590588969,
+        "cash_days": 0,
+        "daily_cost_total_nav_units": 0.00032592280465349507
+      }
+    },
+    {
+      "forward_year": 2024,
+      "selected": 20,
+      "training_sharpe": {
+        "20": 0.49222607503163035,
+        "60": 0.16760576154449747,
+        "120": 0.27678212654577394
+      },
+      "last_training_date": "2023-12-29",
+      "adaptive": {
+        "sessions": 242,
+        "total": -0.11381123969473972,
+        "cagr": -0.11822475917716524,
+        "volatility": 0.1912084134029388,
+        "sharpe": -0.5615728194327072,
+        "max_drawdown": -0.22795364479426616,
+        "peak": "2024-04-12",
+        "trough": "2024-10-17",
+        "annual_turnover": 16.646593076345155,
+        "cash_days": 38,
+        "daily_cost_total_nav_units": 0.026539413554229896
+      },
+      "fixed60": {
+        "sessions": 242,
+        "total": 0.06802535101477147,
+        "cagr": 0.07093378021434082,
+        "volatility": 0.19893804666427484,
+        "sharpe": 0.44470494432220126,
+        "max_drawdown": -0.18523027275654114,
+        "peak": "2024-09-26",
+        "trough": "2024-10-17",
+        "annual_turnover": 2.0805640640351406,
+        "cash_days": 0,
+        "daily_cost_total_nav_units": 0.0027130530845380727
+      },
+      "equal": {
+        "sessions": 242,
+        "total": 0.20020549511433017,
+        "cagr": 0.20929048593331934,
+        "volatility": 0.18440983622151935,
+        "sharpe": 1.121985871882807,
+        "max_drawdown": -0.10733566819425944,
+        "peak": "2024-05-20",
+        "trough": "2024-09-09",
+        "annual_turnover": 0.513811668460439,
+        "cash_days": 0,
+        "daily_cost_total_nav_units": 0.0007191701890124844
+      }
+    },
+    {
+      "forward_year": 2025,
+      "selected": 20,
+      "training_sharpe": {
+        "20": 0.36851801282331714,
+        "60": 0.1995086003924116,
+        "120": 0.25811761889416934
+      },
+      "last_training_date": "2024-12-31",
+      "adaptive": {
+        "sessions": 243,
+        "total": 0.4863845950501535,
+        "cagr": 0.5083649256210194,
+        "volatility": 0.19655593356274323,
+        "sharpe": 2.1910485622504705,
+        "max_drawdown": -0.11525933350037587,
+        "peak": "2025-04-22",
+        "trough": "2025-05-15",
+        "annual_turnover": 12.433048433048443,
+        "cash_days": 18,
+        "daily_cost_total_nav_units": 0.019830739503710247
+      },
+      "fixed60": {
+        "sessions": 243,
+        "total": 0.5440556710068369,
+        "cagr": 0.5690994552770476,
+        "volatility": 0.18933864912626477,
+        "sharpe": 2.4759672900984473,
+        "max_drawdown": -0.11525933350037587,
+        "peak": "2025-04-22",
+        "trough": "2025-05-15",
+        "annual_turnover": 6.216006216006222,
+        "cash_days": 0,
+        "daily_cost_total_nav_units": 0.00872085995549967
+      },
+      "equal": {
+        "sessions": 243,
+        "total": 0.37600844394140154,
+        "cagr": 0.39237178368074965,
+        "volatility": 0.14338174551716107,
+        "sharpe": 2.3822013814716008,
+        "max_drawdown": -0.07900880238604213,
+        "peak": "2025-03-19",
+        "trough": "2025-04-07",
+        "annual_turnover": 0.36026448497949787,
+        "cash_days": 0,
+        "daily_cost_total_nav_units": 0.0006226207828867618
+      }
+    }
+  ],
+  "forward_summary": {
+    "adaptive": {
+      "sessions": 1699,
+      "total": 1.3140557663302008,
+      "cagr": 0.13251731745154305,
+      "volatility": 0.1860115299877569,
+      "sharpe": 0.7623851547998904,
+      "max_drawdown": -0.3515880070177765,
+      "peak": "2021-02-10",
+      "trough": "2024-10-17",
+      "annual_turnover": 13.633523627637825,
+      "cash_days": 214,
+      "daily_cost_total_nav_units": 0.1546169327865306
+    },
+    "fixed60": {
+      "sessions": 1699,
+      "total": 0.8844683896842231,
+      "cagr": 0.09854211443575212,
+      "volatility": 0.18887260046650128,
+      "sharpe": 0.5926684797168064,
+      "max_drawdown": -0.315527985548524,
+      "peak": "2021-02-10",
+      "trough": "2023-10-10",
+      "annual_turnover": 8.001415888408248,
+      "cash_days": 0,
+      "daily_cost_total_nav_units": 0.06409862396217282
+    },
+    "equal": {
+      "sessions": 1699,
+      "total": 1.5073664436478231,
+      "cagr": 0.14607489826567988,
+      "volatility": 0.15187497826485472,
+      "sharpe": 0.9739130517640279,
+      "max_drawdown": -0.20714603368980988,
+      "peak": "2021-09-10",
+      "trough": "2024-02-05",
+      "annual_turnover": 0.3672902942285966,
+      "cash_days": 0,
+      "daily_cost_total_nav_units": 0.0033705219375276805
+    }
+  },
+  "adaptive_risk_vs_equal": {
+    "historical_var_97_5_daily_loss": 0.02512849800114203,
+    "historical_es_97_5_daily_loss": 0.03637533300632144,
+    "tail_days": 43,
+    "tracking_error_annual": 0.14470492788286607,
+    "information_ratio": -0.04215885784606995,
+    "beta_vs_equal": 0.7961234672458639,
+    "longest_underwater_sessions": 1126,
+    "last_weights": {
+      "sh510300": 0.0,
+      "sh510500": 0.0,
+      "sh518880": 1.0
+    },
+    "instant_shock_at_last_weights": {
+      "equity_gap": 0.01,
+      "gold_gap": -0.08,
+      "cross_asset_selloff": -0.06
+    },
+    "instant_shock_assumptions": {
+      "equity_gap": {
+        "sh510300": -0.07,
+        "sh510500": -0.09,
+        "sh518880": 0.01
+      },
+      "gold_gap": {
+        "sh510300": -0.01,
+        "sh510500": -0.015,
+        "sh518880": -0.08
+      },
+      "cross_asset_selloff": {
+        "sh510300": -0.05,
+        "sh510500": -0.07,
+        "sh518880": -0.06
+      }
+    }
+  }
+}
