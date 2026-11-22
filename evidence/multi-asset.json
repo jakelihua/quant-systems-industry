@@ -1,0 +1,178 @@
+{
+  "data_provenance": "synthetic",
+  "futures": {
+    "daily": [
+      {
+        "day": 0,
+        "contract": "near",
+        "settlement": 100,
+        "variation": 0,
+        "fees": 4,
+        "roll_gap_points": null,
+        "maintenance": 200.0,
+        "cash": 2396,
+        "encumbered": 0,
+        "extra_collateral": 0
+      },
+      {
+        "day": 1,
+        "contract": "near",
+        "settlement": 103,
+        "variation": 60,
+        "fees": 0,
+        "roll_gap_points": null,
+        "maintenance": 206.0,
+        "cash": 2456,
+        "encumbered": 0,
+        "extra_collateral": 0
+      },
+      {
+        "day": 2,
+        "contract": "far",
+        "settlement": 107,
+        "variation": -40,
+        "fees": 8,
+        "roll_gap_points": 6,
+        "maintenance": 214.0,
+        "cash": 2408,
+        "encumbered": 0,
+        "extra_collateral": 0
+      },
+      {
+        "day": 3,
+        "contract": "far",
+        "settlement": 114,
+        "variation": 140,
+        "fees": 0,
+        "roll_gap_points": null,
+        "maintenance": 296.40000000000003,
+        "cash": 2619.2,
+        "encumbered": 2300,
+        "extra_collateral": 71.2
+      }
+    ],
+    "sum_variation": 160,
+    "naive_stitched_variation": 280,
+    "fees": 12,
+    "pnl_ex_collateral": 148,
+    "initial_deposit": 2400,
+    "extra_collateral": 71.2,
+    "ending_cash": 2619.2
+  },
+  "options": {
+    "spot": 5.0,
+    "time_years": 0.25,
+    "contract_size": 10000,
+    "shock_spot": -0.3,
+    "shock_vol_decimal": 0.08,
+    "positions": [
+      {
+        "strike": 4.8,
+        "type": "put",
+        "position_contracts": 2,
+        "bid": 0.15383350082048786,
+        "ask": 0.16853705812915543,
+        "bid_iv": 0.2519999999999997,
+        "ask_iv": 0.26800000000000024,
+        "price": 0.16117318520396395,
+        "delta": -0.34436240632703674,
+        "gamma": 0.5655505486701403,
+        "vega_per_vol_point": 0.009190196415889779,
+        "linear_pnl": 3536.605864504585,
+        "delta_gamma_vega": 4045.601358307711,
+        "repriced_pnl": 4103.54024372471
+      },
+      {
+        "strike": 5.0,
+        "type": "call",
+        "position_contracts": -1,
+        "bid": 0.21683469263858646,
+        "ask": 0.2327045119544091,
+        "bid_iv": 0.2119999999999999,
+        "ask_iv": 0.22799999999999992,
+        "price": 0.22476996409748828,
+        "delta": 0.5296517145564582,
+        "gamma": 0.7213561500243978,
+        "vega_per_vol_point": 0.009918647062835469,
+        "linear_pnl": 795.4633786425372,
+        "delta_gamma_vega": 470.85311113155825,
+        "repriced_pnl": 570.1700901872697
+      },
+      {
+        "strike": 5.2,
+        "type": "call",
+        "position_contracts": -1,
+        "bid": 0.14378041654269436,
+        "ask": 0.1591610337046674,
+        "bid_iv": 0.22200000000000059,
+        "ask_iv": 0.2379999999999997,
+        "price": 0.15145751473906555,
+        "delta": 0.39574315719207714,
+        "gamma": 0.6687629096254993,
+        "vega_per_vol_point": 0.009613466825866553,
+        "linear_pnl": 418.15212550690705,
+        "delta_gamma_vega": 117.20881617543237,
+        "repriced_pnl": 302.8630772873187
+      }
+    ],
+    "linear_pnl": 4750.221368654029,
+    "delta_gamma_vega": 4633.663285614702,
+    "repriced_pnl": 4976.573411199299
+  },
+  "market_making": {
+    "fills": [
+      {
+        "side": 1,
+        "qty": 100,
+        "fill": 4.99,
+        "arrival_mid": 5.0,
+        "future_mid": 4.96,
+        "spread_capture": 0.9999999999999787,
+        "markout": -3.000000000000025,
+        "mid_drift_to_close": -4.999999999999982,
+        "fee": 0.1
+      },
+      {
+        "side": 1,
+        "qty": 100,
+        "fill": 4.97,
+        "arrival_mid": 4.98,
+        "future_mid": 4.94,
+        "spread_capture": 1.0000000000000675,
+        "markout": -2.999999999999936,
+        "mid_drift_to_close": -3.000000000000025,
+        "fee": 0.1
+      },
+      {
+        "side": -1,
+        "qty": 70,
+        "fill": 4.97,
+        "arrival_mid": 4.96,
+        "future_mid": 4.99,
+        "spread_capture": 0.6999999999999851,
+        "markout": -1.4000000000000323,
+        "mid_drift_to_close": 0.6999999999999851,
+        "fee": 0.07
+      },
+      {
+        "side": -1,
+        "qty": 30,
+        "fill": 5.01,
+        "arrival_mid": 5.0,
+        "future_mid": 5.02,
+        "spread_capture": 0.2999999999999936,
+        "markout": -0.2999999999999936,
+        "mid_drift_to_close": 1.4999999999999947,
+        "fee": 0.03
+      }
+    ],
+    "end_mid": 4.95,
+    "end_inventory": 100,
+    "cash": -498.10000000000014,
+    "equity_pnl": -3.1000000000001364,
+    "spread_capture": 3.000000000000025,
+    "markout": -7.699999999999987,
+    "mid_drift_to_close": -5.800000000000027,
+    "fee": 0.30000000000000004
+  }
+}

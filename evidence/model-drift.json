@@ -1,0 +1,33 @@
+{
+  "data_provenance": "synthetic; known regime and feature shift",
+  "train_range": [
+    0,
+    299
+  ],
+  "coefficients": [
+    -0.00013105508004684408,
+    0.003046993171812757
+  ],
+  "stable_validation": {
+    "range": [
+      300,
+      359
+    ],
+    "rmse": 0.001847671087479597,
+    "zero_forecast_rmse": 0.003725122399364464,
+    "directional_accuracy": 0.7666666666666667,
+    "feature_mean_shift_train_sd": 0.05740794739434418,
+    "feature_shift_alert": false
+  },
+  "shifted_forward": {
+    "range": [
+      360,
+      419
+    ],
+    "rmse": 0.0076734427728050465,
+    "zero_forecast_rmse": 0.0034816187479706994,
+    "directional_accuracy": 0.13333333333333333,
+    "feature_mean_shift_train_sd": 1.1325303882744902,
+    "feature_shift_alert": true
+  }
+}

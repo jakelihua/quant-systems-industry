@@ -1,0 +1,67 @@
+{
+  "data_provenance": "synthetic",
+  "portfolio": {
+    "candidates": 375,
+    "feasible": 58,
+    "benchmark": {
+      "weights_percent": [
+        30,
+        20,
+        25,
+        25
+      ],
+      "forecast_active_return_bps": 0.0,
+      "active_beta": 0.0,
+      "active_industry_1": 0.0,
+      "annual_tracking_error": 0.0,
+      "two_sided_turnover": 0.1,
+      "turnover_cost_bps": 1.5,
+      "objective_score": -1.5
+    },
+    "budget_and_position_cap_only": {
+      "weights_percent": [
+        40,
+        10,
+        30,
+        20
+      ],
+      "forecast_active_return_bps": 47.5,
+      "active_beta": 0.03499999999999999,
+      "active_industry_1": 0.0,
+      "annual_tracking_error": 0.029392856274952254,
+      "two_sided_turnover": 0.4,
+      "turnover_cost_bps": 6.0,
+      "objective_score": 24.2212
+    },
+    "fully_constrained": {
+      "weights_percent": [
+        40,
+        10,
+        25,
+        25
+      ],
+      "forecast_active_return_bps": 40.0,
+      "active_beta": 0.029999999999999985,
+      "active_industry_1": 0.0,
+      "annual_tracking_error": 0.026060698378976725,
+      "two_sided_turnover": 0.3,
+      "turnover_cost_bps": 4.5,
+      "objective_score": 21.916799999999995
+    }
+  },
+  "reconciliation": {
+    "local_duplicates": [
+      "X2"
+    ],
+    "external_duplicates": [],
+    "missing_locally": [
+      "X3"
+    ],
+    "missing_externally": [
+      "X4"
+    ],
+    "field_mismatches": [
+      "X2"
+    ]
+  }
+}
