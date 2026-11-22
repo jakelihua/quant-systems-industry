@@ -64,3 +64,52 @@ flowchart LR
 ```
 
 真实市场实验是 ETF 日线历史模拟。合成实验用于执行、行情和风控协议验证。课程中的期货、期权、做市和实盘基础设施有桌面案例与验收任务。
+
+
+---
+
+## English Overview
+
+### About The Project
+
+This repository provides an empirical, reproducible 14-week training curriculum and verification platform bridging quantitative research, market data feeds, execution algos, order ledgers, portfolio risk, and production operations.
+
+Covering **21 quant role families** based on publicly verifiable requirements across **45 institutions**, the project is structured around actual desk deliverables:
+- Daily desk monitoring routines and order book dynamics
+- Technical rationale for infrastructure choices (Python, C++17, tick data formats)
+- Diagnostic procedures for real-world anomalies (race conditions, sequence gaps, roll jumps)
+- Concrete acceptance tests and deterministic validation criteria
+
+### Key Empirical Findings & Replay Experiments
+
+- **Futures Roll Accounting**: Directly concatenating two futures contracts without calendar adjustment improperly credits a 120.00 roll gap to strategy PnL. The contract-level ledger isolates basis from trading returns.
+- **Market Making Microstructure**: Even after capturing a 3.00 bid-ask spread, adverse inventory price movement and execution fees yield a net PnL of -3.10.
+- **Point-In-Time (PIT) Data Feed**: Sequence gap detection temporarily halts quote broadcast until snapshot recovery. Historical queries return Missing / 100 / 80 adhering strictly to decision-time knowledge boundaries.
+- **Order Journal & TCA Replay**: Replaying concurrent fills and cancels under race conditions (order for 100 shares: 60 filled, 40 canceled) yields an implementation shortfall of 70 bps with idempotent replay (0 new events).
+- **Adaptive Walk-Forward Backtesting**: Out-of-sample forward walk (2019–2025) achieves 13.25% CAGR (-35.16% MDD) under full transaction costs, outperforming fixed 60-day momentum (9.85%).
+- **Low-Latency Engine Benchmark**: Direct memory indexing in C++17 achieves sub-nanosecond p50 update latency (~0.61 ns) compared to ~58.0 ns with std::map trees.
+
+### Quickstart & Reproduction
+
+```bash
+# 1. Run all unit tests (standard library only)
+python3 -m unittest discover -s tests -v
+
+# 2. Run deterministic lab verifications
+python3 verify.py
+
+# 3. Optional: Run with C++ benchmarks and market data suite
+python3 verify.py --market-data --cpp
+```
+
+### Module Navigation
+
+| Module | Scope | Entry |
+|---|---|---|
+| Role Curriculum | 21 role families, desk deliverables, stack choices | [docs/08-role-curriculum.md](docs/08-role-curriculum.md) |
+| Experiment Logs | Futures, options, market making, risk & reconciliation | [docs/09-experiment-log.md](docs/09-experiment-log.md) |
+| Architecture & JD | Technical stack positioning and trade-offs | [docs/01-jd-and-stack.md](docs/01-jd-and-stack.md) |
+| Desk Guide | Reading equity, ETF, futures, options, and market making books | [docs/02-desk-guide.md](docs/02-desk-guide.md) |
+| Systems & Ops | Sequence gaps, revisions, cancel races, and reconciliation | [docs/04-systems-and-operations.md](docs/04-systems-and-operations.md) |
+| Verified Evidence | JSON run outputs and input provenance hashes | [evidence/](evidence/) |
+| Interactive Catalog | Standalone filterable browser index for verified positions | [catalog/index.html](catalog/index.html) |
