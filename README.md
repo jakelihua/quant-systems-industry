@@ -19,6 +19,8 @@
 
 ## 🧭 快速传送门 / Quick Navigation
 
+> 📖 **零基础新手必读**：看不懂 PIT、TCA、IS、DV01、逆向选择这些黑话？先花 5 分钟看完这篇 **[《🐳 零基础大白话入门：把量化全链路黑话全部翻译成人话》](docs/00-plain-language-guide.md)**，用“开超市 / 点外卖 / 考试作弊”的日常比喻秒懂全部流程！
+
 - [🐳 为什么用 7 天就能速通量化核心？](#-为什么用-7-天就能速通量化核心)
 - [🎣 核心硬核实证与避坑大赏](#-核心硬核实证与避坑大赏)
 - [🌊 投研到撮合的深海全链路](#-投研到撮合的深海全链路)
@@ -54,7 +56,7 @@
 
 ---
 
-## 🌊 投研到撮合的深海全链路
+## 🌊 投研到撮合的深海全链路（附大白话翻译）
 
 ```mermaid
 flowchart LR
@@ -68,6 +70,16 @@ flowchart LR
     G --> I[🚨 故障现场复盘与混沌演练]
     H --> C
 ```
+
+**🗣️ 把上面 6 个环节翻译成人话（想象你在经营一家全自动智能生鲜超市）：**
+1. **📡 原始行情** = 交易所每秒发来的“当前菜价单 + 排队买菜人数”。
+2. **⏳ Point-In-Time (PIT) 时点引擎** = **“不准偷看明天的报纸”**，回测时严格封存当时人类已知的数据，杜绝拿未来价格作弊。
+3. **🧠 因子与组合优化** = 挑出可能涨的品种，并决定每个品种买几成仓、不把鸡蛋放同一个篮子（戴着风险镣铐分配资金）。
+4. **🛡️ 事前风控** = 出门前的保命安检：查兜里钱够不够、防手抖多打两个零、防自己跟自己成交。
+5. **⚡ 撮合执行与订单日志** = 把大单拆小单悄悄买防抬价，同时把每笔“下单/成交/撤单”按顺序记死，崩了重启也能原样还原（幂等）。
+6. **💼 四方对账与复盘** = 每天收盘把“自己记的账”和“券商/交易所账单”逐笔画勾，少一分钱立刻报警查原因。
+
+> 更多黑话对照表（前推验证、最大回撤、期货基差、做市逆向选择、70 bp 滑点、DV01、Cache Miss 等）请直接查阅 👉 **[零基础大白话词典](docs/00-plain-language-guide.md)**。
 
 ---
 
@@ -85,15 +97,15 @@ Day 6 🚀 极速与运维 -> 编译实测 C++17 0.61ns 价格档 (S1) + SRE 故
 Day 7 🏆 鲸跃答辩   -> 把 evidence/*.json 喂给 AI 做 5 轮 Desk Head 压力拷问，产出简历级复盘
 ```
 
-| 天数 | 冲刺主题 | 必跑命令 / 入口 | 当天验收成果（配合 AI 副驾） |
+| 天数 | 冲刺主题（大白话解释） | 必跑命令 / 入口 | 当天验收成果（配合 AI 副驾） |
 |:---|:---|:---|:---|
-| **Day 1** | 行业全景与岗位定锚 | `python3 verify.py` · [`catalog/index.html`](catalog/index.html) | 跑通全部 26 项单测；从 45 家机构 21 类岗位里圈出最适合自己的 1~2 条主线 |
-| **Day 2** | 投研前推与模型漂移 | `python3 -m lab.research` · `python3 -m lab.model_drift` | 故意制造未来函数观察测试变红，让 AI 讲透样本外漂移拒单机制 |
-| **Day 3** | 组合优化与风控约束 | `python3 -m lab.portfolio_controls` | 对比受限与不受限组合权重差异，算清跟踪误差与双边换手成本 |
-| **Day 4** | 期货、期权与做市微观 | `python3 -m lab.multi_asset` · `python3 -m lab.valuation` | 剥离 120 元期货换月假利润；手拆做市 +3.00 价差却净亏 −3.10 的微观账本 |
-| **Day 5** | PIT 数据、执行与对账 | `python3 -m lab.data_plane` · `python3 -m lab.execution` | 演练盘口缺序号熔断与快照恢复；连续运行两次回放验证幂等性（新增事件=0） |
-| **Day 6** | 纳秒级 C++ 与 AI 巡检 | `python3 verify.py --market-data --cpp` · [`docs/04`](docs/04-systems-and-operations.md) | 实测连续数组 0.61 ns vs `std::map` 57.99 ns；设计确定性接口隔离下的 AI 运维诊断 |
-| **Day 7** | 模拟拷问与结项输出 | [`docs/10-capstone.md`](docs/10-capstone.md) · [`evidence/`](evidence/) | 把机器日志 JSON 喂给 `Claude 5.5` / `GPT 6.1` 模拟交易台主管 5 轮深挖，沉淀个人技术复盘 |
+| **Day 1** | **行业全景与岗位定锚**<br>（搞懂大厂招的 21 种人分别干嘛） | `python3 verify.py` · [`catalog/index.html`](catalog/index.html) | 先读[大白话入门](docs/00-plain-language-guide.md)再跑通 26 项单测；从 45 家机构里圈出最适合自己的 1~2 条主线 |
+| **Day 2** | **投研前推与模型漂移**<br>（模拟真实考试不准背答案 + 老攻略失效自动报警） | `python3 -m lab.research` · `python3 -m lab.model_drift` | 故意制造“未来函数”观察测试变红，让 AI 讲透样本外漂移拒单机制 |
+| **Day 3** | **组合优化与风控约束**<br>（不梭哈单只股票 + 算清频繁倒腾的手续费） | `python3 -m lab.portfolio_controls` | 对比加约束/不加约束的仓位差异，算清跟踪误差（偏离大盘程度）与换手过路费 |
+| **Day 4** | **期货、期权与做市微观**<br>（换月别把空气价差当盈利 + 做市商怎么被大佬收割） | `python3 -m lab.multi_asset` · `python3 -m lab.valuation` | 剥离 120 元期货换月假利润；手拆做市赚 3 元价差却净亏 −3.10 的微观账本 |
+| **Day 5** | **PIT 数据、执行与对账**<br>（断流别拿旧画面糊弄 + 外卖取消前骑手已敲门 + 盘点对账） | `python3 -m lab.data_plane` · `python3 -m lab.execution` | 演练盘口缺序号熔断与快照恢复；连续运行两次回放验证幂等性（钱绝不扣两次，新增=0） |
+| **Day 6** | **纳秒级 C++ 与 AI 巡检**<br>（书架紧挨着找书快 100 倍 + AI 只当侦探不碰发单按钮） | `python3 verify.py --market-data --cpp` · [`docs/04`](docs/04-systems-and-operations.md) | 实测连续数组 0.61 ns vs `std::map` 57.99 ns；设计确定性接口隔离下的 AI 运维诊断 |
+| **Day 7** | **模拟拷问与结项输出**<br>（让 AI 扮严厉面试官连环追问） | [`docs/10-capstone.md`](docs/10-capstone.md) · [`evidence/`](evidence/) | 把机器日志 JSON 喂给 `Claude 5.5` / `GPT 6.1` 模拟交易台主管 5 轮深挖，沉淀简历级技术复盘 |
 
 > 💡 **进阶深化**：7 天速通建立完整系统观后，可按 [`docs/08-role-curriculum.md`](docs/08-role-curriculum.md) 的 **14 周逐岗精修表**，针对目标岗位做深做透。
 
