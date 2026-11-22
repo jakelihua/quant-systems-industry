@@ -5,6 +5,7 @@ from lab.jd_catalog import FAMILIES, ROOT, load_register, render
 from lab.model_drift import score
 from lab.multi_asset import european, futures_roll, implied_vol, market_making, options_stress
 from lab.portfolio_controls import reconcile, search_portfolios
+from lab.valuation import fund_nav, rates_and_fx
 
 
 class MarketLabTests(unittest.TestCase):
@@ -59,6 +60,19 @@ class MarketLabTests(unittest.TestCase):
         self.assertGreater(shift["rmse"], shift["zero_forecast_rmse"])
         self.assertFalse(stable["feature_shift_alert"])
         self.assertTrue(shift["feature_shift_alert"])
+
+    def test_fx_forward_and_dv01_use_stated_units(self):
+        r = rates_and_fx()
+        self.assertAlmostEqual(r["simple_interest_forward"], 1.088)
+        self.assertAlmostEqual(r["long_eur_forward_pnl_usd_at_delivery"], 1200)
+        self.assertLess(r["linear_rate_shock_pnl"], r["repriced_rate_shock_pnl"])
+        self.assertGreater(r["dv01_positive_loss_per_100_face"], 0)
+
+    def test_unit_nav_is_continuous_through_fair_value_subscription(self):
+        r = fund_nav()
+        self.assertAlmostEqual(r["close_unit_nav"], r["post_subscription_unit_nav"])
+        self.assertLess(r["investment_return"], 0)
+        self.assertGreater(r["closing_net_assets_after_flow"], r["prior_net_assets"])
 
     def test_catalog_has_evidence_for_every_family_and_is_reproducible(self):
         source, records = load_register(ROOT / "catalog/jd-register.txt")

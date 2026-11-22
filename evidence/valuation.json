@@ -1,0 +1,24 @@
+{
+  "data_provenance": "synthetic",
+  "rates_and_fx": {
+    "bond_price_per_100": 95.54817766898378,
+    "dv01_positive_loss_per_100_face": 0.04326760177011835,
+    "rate_shock_bps": 50,
+    "linear_rate_shock_pnl": -2.1633800885059173,
+    "repriced_rate_shock_pnl": -2.1331427856276264,
+    "fx_quote_convention": "USD per EUR",
+    "simple_interest_forward": 1.088,
+    "forward_eur_notional": 100000,
+    "delivery_spot": 1.1,
+    "long_eur_forward_pnl_usd_at_delivery": 1200.0000000000011
+  },
+  "fund_nav": {
+    "prior_unit_nav": 1.0,
+    "close_unit_nav": 0.98,
+    "post_subscription_unit_nav": 0.98,
+    "issued_units": 100000.0,
+    "investment_return": -0.020000000000000018,
+    "prior_net_assets": 1000000,
+    "closing_net_assets_after_flow": 1078000
+  }
+}

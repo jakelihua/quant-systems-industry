@@ -1,6 +1,7 @@
 """Validate and render the versioned public-job evidence register."""
 import argparse
 from collections import Counter
+from html import escape
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -62,12 +63,33 @@ def render(sources, records):
     return "\n".join(text)
 
 
+def browser(sources, records):
+    template = (ROOT / "catalog/browser_template.html").read_text(encoding="utf-8")
+    organs = sorted({source[0] for source in sources.values()})
+    rows = []
+    for source, kind, title, family, summary in records:
+        org, group, provenance, status, url = sources[source]
+        label = "具名岗位" if kind == "JD" else kind
+        attributes = f'data-org="{escape(org)}" data-family="{escape(family)}" data-kind="{escape(label)}"'
+        cells = (org, title, FAMILIES[family], label, summary)
+        anchor = f'<a href="{escape(url)}">{escape(provenance)} · {escape(status)}</a>'
+        rows.append(f'<tr {attributes}>' + "".join(f"<td>{escape(cell)}</td>" for cell in cells) + f'<td>{anchor}</td></tr>')
+    counts = Counter(kind for _, kind, *_ in records)
+    stats = f"{len(organs)} 家机构 · {counts['JD']} 条具名岗位 · {counts['方向']} 条岗位方向 · {counts['线索']} 条待补线索"
+    return (template.replace("__SUMMARY__", stats)
+            .replace("__ORGS__", "".join(f"<option>{escape(org)}</option>" for org in organs))
+            .replace("__FAMILIES__", "".join(f'<option value="{code}">{label}</option>' for code, label in FAMILIES.items()))
+            .replace("__ROWS__", "\n".join(rows)))
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=ROOT / "catalog/jd-catalog.md")
+    parser.add_argument("--html", type=Path, help="Optionally write a standalone search index")
     args = parser.parse_args()
     sources, records = load_register(ROOT / "catalog/jd-register.txt")
     args.output.write_text(render(sources, records), encoding="utf-8")
+    if args.html:
+        args.html.write_text(browser(sources, records), encoding="utf-8")
     print(len({s[0] for s in sources.values()}), "organizations", len(sources), "sources",
           dict(Counter(kind for _, kind, *_ in records)))
 
