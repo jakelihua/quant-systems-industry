@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ETF 动量轮动学习记录与公众号底稿</title>
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:#f3f3ea;color:#1c2d25;font:16px/1.8 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+main{max-width:1010px;margin:auto;padding:50px 30px 70px}
+header{padding-bottom:23px;border-bottom:1px solid #b9c5b8}
+h1,h2,h3{line-height:1.26;letter-spacing:-.025em}
+h1{font-size:clamp(32px,6vw,54px);margin:7px 0 16px}
+h2{font-size:27px;margin:36px 0 12px}
+h3{font-size:19px;margin:22px 0 6px}
+p,ol,ul{margin:10px 0} li+li{margin-top:7px}
+.eyebrow,.muted{color:#4c6053;font-size:14px}
+nav{display:flex;gap:5px 19px;flex-wrap:wrap;margin-top:14px;font-size:14px}
+a{color:#155c42;text-underline-offset:.2em} a:focus-visible{outline:2px solid #155c42}
+.scroll{overflow:auto;margin:15px 0}
+table{border-collapse:collapse;background:#fffdf6;width:100%;font-size:14px;min-width:580px}
+th,td{text-align:left;vertical-align:top;border-bottom:1px solid #dbe4d9;padding:9px 12px}
+th{background:#e3ece0;white-space:nowrap}
+.callout{border-left:4px solid #23654b;background:#e7eee2;padding:10px 16px;margin:16px 0}
+code,pre{font:14px/1.7 ui-monospace,monospace}
+code{background:#e6eee2;padding:2px 4px;border-radius:4px}
+pre{overflow:auto;background:#e6eee2;border-radius:9px;padding:12px}
+article{background:#fffcf5;border:1px solid #dbe4d9;border-radius:14px;padding:18px 25px}
+article h3:first-child{margin-top:0;font-size:24px}
+@media(max-width:600px){main{padding:24px 15px 45px}article{padding:14px}}
+</style>
+</head>
+<body><main>
+<header>
+<p class="eyebrow">2026-11-22 · 量化项目实践</p>
+<h1>ETF 动量轮动学习记录</h1>
+<p>用三只公开交易的 ETF 完成第一轮量化研究。项目实际完成了数据采集、质量巡检、信号和成交模拟、基准比较、留出期复盘、敏感性分析、自动检查和交互报告。学习进度以项目证据为准，个人复跑和独立讲解留作自测。</p>
+<nav><a href="#scope">岗位与研究问题</a><a href="#journal">实践日志</a><a href="#math">手算与指标</a><a href="#review">结果与边界</a><a href="#learn">复跑与学习路线</a><a href="#article">公众号底稿</a><a href="#sources">来源</a></nav>
+</header>
+
+<section id="scope">
+<h2>岗位和研究问题</h2>
+<p>九坤投资官网列出了指数增强、量化对冲、CTA、股票多空和股票优选等策略。附件《九坤智能化工程师》把重心放在内部系统与交易支持系统、AI 协作、系统可靠性和端到端交付。九坤在华中科技大学的公开宣讲还提到监控告警、运维分析和智能巡检。这个公开行情项目用来练习上述工程能力，研究对象自选。<a href="https://www.ubiquant.com/website/about">九坤官网</a> · <a href="https://job.hust.edu.cn/extxjh/581791873703758.do">华中科技大学宣讲材料</a></p>
+<p>研究问题是，沪深 300 ETF（510300）、中证 500 ETF（510500）和黄金 ETF（518880）之间做月度动量轮动，能否在扣成本后超过同一资产池的月度等权，并控制回撤。动量用最近 60 个交易日复权收盘涨幅，月末排序，只有第一名且涨幅为正才持有。并列时按代码排序。次月首个交易日以复权开盘价模拟交易。</p>
+<p class="callout"><strong>研究流程</strong>　行情快照 → 日历和 OHLC 巡检 → 月末信号 → 次月开盘模拟 → 日末估值 → 收益和风险对照 → 离线看板。</p>
+</section>
+
+<section id="journal">
+<h2>实践日志</h2>
+<div class="scroll"><table>
+<thead><tr><th scope="col">完成环节</th><th scope="col">证据与决策</th><th scope="col">学到的概念</th></tr></thead>
+<tbody>
+<tr><td>确定问题</td><td>主设定为 60 日、每侧成本 10 bp。设置同池等权、沪深 300 ETF 持有、黄金 ETF 持有及只在两只股票 ETF 间做动量作为对照。主设定依据教学可解释性确定。</td><td>同池等权有助于比较轮动规则带来的差异，同时仍受到仓位集中度和风险暴露的影响。</td></tr>
+<tr><td>采集和核验</td><td>腾讯行情 44 批，248 条重叠记录一致。2015-07-01 起的研究与预热窗口三只 ETF 对齐 2,555 个交易日。基金公告解释了预热前两天缺口。跨源核对沪深 300 ETF 的 6 根日线，OHLC 逐项一致。</td><td>分清停牌缺口与采集故障。上证综指在项目里只提供交易日，单条异常 OHLC 不进入估值。</td></tr>
+<tr><td>信号和撮合</td><td>先用月末收盘生成信号，再用次月第一个交易日的开盘价模拟成交。扣费后计算目标仓位。120 次月度决策产生 75 条买卖记录。</td><td>信号时间、可成交时间和估值时间各自独立。一场换仓可能产生两条记录，现金仓位则可能跨月延续。</td></tr>
+<tr><td>基准与稳健性</td><td>全样本 2,430 个交易日。2016–2022 为前段，2023–2025 留出 727 个交易日，沿用前段持仓。另跑 3 个窗口 × 4 个成本口径，并做 20 日成块重采样。</td><td>参数网格看的是依赖程度。历史留出期仍然经历了同一次市场演化，验证力度有限。</td></tr>
+<tr><td>可靠性和交付</td><td>9 条自动测试覆盖首笔交易、未来信息、现金扣费、留出段起点、交易日缺失和成本变化。修改交易当天收盘价，首笔信号与开盘成交保持一致，日末净值随之变化。故意删除研究期一根日线，数据层直接报错。</td><td>AI 可以实现流程、补测试和整理报告。结果由固定快照、执行代码、自动断言和逐笔明细支撑。</td></tr>
+</tbody>
+</table></div>
+<p><strong>数据边界。</strong> 腾讯上证综指 2015-03-27 有 1 条 OHLC 异常。中证 500 ETF 在 2015-04-13 和 2015-04-14 的两个缺口与份额折算停牌公告一致。三天均早于预热起点。东方财富的跨源核验只覆盖末段 6 个交易日，分红、份额折算和完整交易日历仍需要更系统的独立审计。<a href="https://epaper.stcn.com/paper/zqsb/html/2015-04/07/content_671814.htm">南方基金停牌公告</a> · <a href="https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=1.510300&amp;fields1=f1,f2,f3,f4,f5,f6&amp;fields2=f51,f52,f53,f54,f55,f56&amp;klt=101&amp;fqt=1&amp;beg=20251224&amp;end=20251231">东方财富抽样数据</a></p>
+</section>
+
+<section id="math">
+<h2>手算第一笔交易</h2>
+<ol>
+<li>取 2015-12-31 和回看锚点 2015-10-08 的前复权收盘，按 <code>近期收盘 / 回看收盘 − 1</code> 算动量。沪深 300 ETF 为 17.14%，中证 500 ETF 为 22.33%，黄金 ETF 为 −4.86%。</li>
+<li>2016-01-04 开盘买入中证 500 ETF。初始净值取 1，单边成本 0.10%，可买名义金额为 <code>1 / 1.001 = 0.999001</code>，费用约 0.000999。用 6.429 的复权开盘价把名义金额换成模拟份额。</li>
+<li>用当天复权收盘价重新估值后，净值为 0.913692，当日收益约 −8.63%。本例的回撤由每日收盘净值计算，期初现金 1 也纳入峰值。</li>
+</ol>
+<div class="scroll"><table>
+<thead><tr><th scope="col">指标</th><th scope="col">口径</th><th scope="col">用来回答</th></tr></thead>
+<tbody>
+<tr><td>累计收益</td><td>期末净值 / 期初净值 − 1。</td><td>从这一段开头到结尾赚亏多少？</td></tr>
+<tr><td>年化收益</td><td>把净值倍率按每年 252 个交易日折算为复合年增长率。</td><td>不同时长怎样放到同一尺度上？</td></tr>
+<tr><td>年化波动和夏普</td><td>日收益样本标准差乘 √252。日均收益 ÷ 日收益标准差 × √252，假设无风险利率为零。</td><td>收益波动多大？单位波动对应多少平均收益？</td></tr>
+<tr><td>最大回撤</td><td>取区间内每日净值相对此前最高净值的最小变化率。切换区间时用期初净值重新计算。</td><td>区间内最深的峰谷跌幅有多大？</td></tr>
+<tr><td>年化双边换手</td><td>按日用买入加卖出名义金额除以成交前开盘净值，再按 252 日年化。</td><td>成本为什么可能吞掉收益？</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="review">
+<h2>结果与研究边界</h2>
+<div class="scroll"><table>
+<thead><tr><th scope="col">策略</th><th scope="col">全样本年化</th><th scope="col">全样本最大回撤</th><th scope="col">留出期年化</th><th scope="col">留出期最大回撤</th></tr></thead>
+<tbody>
+<tr><td>三 ETF 动量</td><td>6.48%</td><td>−32.08%</td><td>16.77%</td><td>−18.52%</td></tr>
+<tr><td>三 ETF 月度等权</td><td>8.20%</td><td>−26.11%</td><td>18.75%</td><td>−16.85%</td></tr>
+<tr><td>沪深 300 ETF 持有</td><td>4.55%</td><td>−44.75%</td><td>9.18%</td><td>−24.15%</td></tr>
+<tr><td>黄金 ETF 持有</td><td>15.92%</td><td>−20.47%</td><td>34.14%</td><td>−11.53%</td></tr>
+<tr><td>两只股票 ETF 动量</td><td>−1.58%</td><td>−45.57%</td><td>−0.88%</td><td>−30.14%</td></tr>
+</tbody></table></div>
+<ul>
+<li>主策略全样本持有黄金 1,123 天，占 46.21%。移除黄金后，留出期年化收益从 16.77% 变为 −0.88%。该变体同时改变了标的和空仓机会，差值不能直接拿来做黄金收益归因。</li>
+<li>留出期、60 日窗口下，每侧成本从 0、10、25 提到 50 bp 时，年化收益依次为 17.50%、16.77%、15.68%、13.89%。固定每侧 10 bp 时，20/60/120 日窗口分别得到 8.38%、16.77% 和 11.08%。</li>
+<li>留出期动量相对等权的复合年化收益约 −1.67%。对两条策略的配对日收益按 20 日成块重采样 1,500 次，95% 区间约为 −26.72% 至 22.56%。这是描述样本不确定性的估计，适用性取决于相关性与市场状态假设。</li>
+<li>前复权快照由数据商提供，历史价格可能随复权基准、企业行动或数据修订而改变。研究使用可分割份额和固定比例成本，未模拟集合竞价成交量、限价及涨跌停、整手和最小佣金、订单拒绝、成交回报、容量或现金利息。历史留出仍是一次事后切分，资产池也按现有标的选取。</li>
+</ul>
+</section>
+
+<section id="learn">
+<h2>复跑与学习路线</h2>
+<p>解压项目包，在项目目录运行 <code>python3 run.py</code>。需要 Python 3.9 或更新版本。项目用标准库运行，行情已经固定在项目包内。</p>
+<div class="scroll"><table>
+<thead><tr><th scope="col">阶段</th><th scope="col">亲手完成的练习</th><th scope="col">验收方式</th></tr></thead>
+<tbody>
+<tr><td>第 1 周　行情和收益</td><td>区分价格、净值、复权、分红和停牌，复算首笔信号、成本与净值。</td><td>能从原始快照追回两天收盘价，用计算器得到 22.33% 和 0.913692。</td></tr>
+<tr><td>第 2 周　信号和执行</td><td>跟踪一次从中证 500 换到黄金的交易，推导先计入隔夜价格变动、再卖出买入、最后收盘估值的顺序。</td><td>用逐笔账解释何时需要付两侧成本，并证明当日收盘信息进不了同日开盘成交。</td></tr>
+<tr><td>第 3 周　样本和风险</td><td>切换区间和成本，解释同池等权、黄金对照、窗口网格和留出区间；用逐日净值找最大回撤。</td><td>解释为什么赢单只沪深 300 ETF 的结果不足以支持策略有效，写出自己的反证条件。</td></tr>
+<tr><td>第 4 周　工程与表达</td><td>在副本故意删一根 K 线、改错一处扣费、重复一批数据。保留失败日志，再导出净值和回撤图写复盘。</td><td>能找到失败点、修复并复跑。文章中的核心数字能追溯到结果文件。</td></tr>
+<tr><td>进阶　从研究到模拟运行</td><td>用交易所日历与更完整的独立行情重做审计，引入涨跌停和成交容量，再做按日仿真、告警和账本对账。</td><td>用历史故障回放检验数据迟到、重复任务、异常订单与恢复。该阶段留作后续项目。</td></tr>
+</tbody></table></div>
+<p><strong>个人学习台账。</strong> 当前由项目完成自动验证。亲手复跑、独立手算、讲解、公众号发布均待你自行填写。下面这段可以复制到自己的学习记录。</p>
+<pre>日期：
+动手做了哪一步：
+运行命令或证据文件：
+我对结果的预期：
+实际值和原因：
+我能独立讲清的一件事：
+下次要验证的问题：</pre>
+</section>
+
+<section id="article">
+<h2>公众号底稿</h2>
+<article>
+<h3>做了一次 ETF 动量回测，它输给了月度等权</h3>
+<p>设想每个月只挑一只 ETF。候选是沪深 300、中证 500 和黄金，谁过去 60 个交易日涨得最多，就在下个月第一个交易日开盘换过去。三只都没涨就持有现金。这条规则简单到可以写在纸上，真正的问题是，用历史数据跑完，它能不能超过每月把钱均分给三只 ETF？</p>
+<p>从 2016 年 1 月 4 日到 2025 年 12 月 31 日，假设每侧交易成本为 0.10%，动量轮动的年化收益是 6.48%，最大回撤是 32.08%。同池月度等权的年化收益是 8.20%，最大回撤是 26.11%。动量轮动赢过了沪深 300 ETF 的买入持有，但如果只放这一条基准，文章就会少掉最重要的比较。</p>
+<p>数据里有一处容易误判。中证 500 ETF 在 2015 年 4 月缺了两天日线。查到基金公告之后，才知道这两天因份额折算暂停交易。这两天早于回测所用的预热区间。程序遇到研究期内的缺失日线会停下来，并给出具体日期。把一个空格补成上一个收盘价，可能会虚构一笔根本没机会成交的交易。<a href="https://epaper.stcn.com/paper/zqsb/html/2015-04/07/content_671814.htm">基金公告</a></p>
+<p>另一个变量是黄金。回测中，动量组合大约 46% 的交易日持有黄金 ETF。同一套规则只在两只股票 ETF 中轮动，2023 到 2025 年的留出期年化收益从 16.77% 降至 −0.88%。同期单独买入持有黄金 ETF 的历史年化收益为 34.14%。这些比较提示，资产池的选择在这段样本里影响很大。</p>
+<p>回测模型假定可以在复权开盘价成交，并用固定费率扣成本。留出期也依然是历史。这个项目最后留下的证据是一套可以逐笔核对的账：月末看到了什么、次月什么时候成交、付了多少成本，以及换一个合理的基准以后，同一条收益曲线应该怎样解读。</p>
+</article>
+<p class="muted">配图位置可放全样本净值及留出期回撤。交互看板支持选取统计区间、勾选曲线和下载 PNG。发布前可在开头补一段你的学习动机，把你亲手核对的一步写进去。引用本文数值时可同时注明数据源、区间、费用和前复权口径。</p>
+</section>
+
+<section id="sources">
+<h2>资料来源</h2>
+<ul>
+<li>附件《九坤智能化工程师》用于岗位需求映射。<a href="https://www.ubiquant.com/website/about">九坤投资官网</a> · <a href="https://job.hust.edu.cn/extxjh/581791873703758.do">九坤公开宣讲</a></li>
+<li>标的简称与代码按交易所资料核对。<a href="https://big5.sse.com.cn/site/cht/www.sse.com.cn/assortment/options/disclo/update/c/c_20261020_10835252.shtml">沪深 300 与中证 500 ETF</a> · <a href="https://www.sse.com.cn/disclosure/fund/etflist/detail.shtml?fundid=518880">黄金 ETF</a></li>
+<li>行情快照采于 2026-11-22，请求地址随快照保存。<a href="https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh510300,day,2025-12-24,2026-01-10,100,qfq">腾讯行情样例</a> · <a href="https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=1.510300&amp;fields1=f1,f2,f3,f4,f5,f6&amp;fields2=f51,f52,f53,f54,f55,f56&amp;klt=101&amp;fqt=1&amp;beg=20251224&amp;end=20251231">东方财富抽样端点</a></li>
+<li>时间序列动量的延伸阅读。论文研究流动性期货，实验设计与本项目不同。<a href="https://pages.stern.nyu.edu/~lpederse/papers/TimeSeriesMomentum.pdf">Moskowitz、Ooi 与 Pedersen（2012）</a></li>
+</ul>
+</section>
+</main></body>
+</html>

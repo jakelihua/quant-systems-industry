@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+*.sqlite*
+/baseline/data/*.json
+/baseline/results/
+/baseline/研究看板.html
+/out/

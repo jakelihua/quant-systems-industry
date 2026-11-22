@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ETF 动量轮动研究看板</title>
+<style>
+:root{color-scheme:light;--ink:#172920;--muted:#52635b;--border:#dfe6db;--paper:#fffcf5;--background:#f1f3e8;--accent:#175742}
+*{box-sizing:border-box}
+body{margin:0;background:var(--background);color:var(--ink);font:15px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+main{max-width:1160px;margin:auto;padding:35px 28px 70px}
+header{border-bottom:1px solid #bdcbbc;padding:16px 0 25px}
+h1,h2,h3,p{margin:0} h1{font-size:clamp(32px,6vw,64px);line-height:1.1;letter-spacing:-.06em;margin:8px 0 15px}
+h2{font-size:23px;line-height:1.25;margin:0 0 14px} h3{font-size:16px}
+.meta,small,.muted{color:var(--muted)} .meta{font-size:13px;letter-spacing:.04em}
+.hero{font-size:17px;max-width:850px}
+section{margin-top:20px;background:var(--paper);border:1px solid var(--border);border-radius:16px;padding:22px}
+.controls{display:flex;align-items:center;gap:9px 16px;flex-wrap:wrap;margin-top:21px}
+.controls label{font-weight:650}
+button,select{font:inherit;color:var(--ink);background:#fffef9;border:1px solid #b5c7b9;border-radius:7px;padding:6px 11px}
+button{cursor:pointer} button:hover{background:#e8f2e9} button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}
+.kpi{background:#e6eee2;border-radius:10px;padding:9px 14px;display:flex;flex-direction:column}
+.kpi strong{font-size:29px;line-height:1.25;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.legend{display:flex;gap:5px 16px;flex-wrap:wrap;margin:0 0 12px}
+.legend label{display:inline-flex;align-items:center;gap:6px;cursor:pointer;font-size:13px}
+.legend i{width:10px;height:10px;border-radius:50%;display:inline-block}
+canvas{display:block;width:100%;height:auto;aspect-ratio:1000/430}
+.chartnote{min-height:27px;font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}.tiles>section{min-width:0}
+.scroll{width:100%;overflow:auto}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;white-space:nowrap}
+th,td{font-size:13px;padding:8px 11px;text-align:right;border-bottom:1px solid var(--border)}
+th{background:#e6eee2;color:#263d2f;font-weight:650} th:first-child,td:first-child{text-align:left}
+tbody tr:first-child td{font-weight:650} td.hot{background:#e2eee3;color:#14513e}
+section p+ p,details p+ p{margin-top:8px} .sp{margin-top:9px}
+summary{cursor:pointer;font-weight:640}
+a{color:var(--accent);text-underline-offset:.15em}
+footer{margin-top:23px;color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+@media(max-width:660px){main{padding:14px 12px 30px}section{padding:14px}.kpis{gap:5px}.kpi{padding:8px}.kpi strong{font-size:21px}.kpi small{font-size:11px} .tiles{grid-template-columns:1fr}canvas{aspect-ratio:1000/585}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<p class="meta">量化学习项目 · 公开行情历史模拟</p>
+<h1>ETF 动量轮动研究</h1>
+<p class="hero" id="headline">比较三只 ETF 的月度动量、等权组合和买入持有。</p>
+</header>
+<div class="controls">
+<label for="period">统计区间</label>
+<select id="period"><option value="all">全样本 · 2016–2025</option><option value="development">前段 · 2016–2022</option><option value="holdout">留出期 · 2023–2025</option></select>
+<label for="mode">图表</label>
+<select id="mode"><option value="nav">累计净值</option><option value="dd">回撤</option></select>
+<button id="download" type="button">下载图表 PNG</button>
+</div>
+<div class="kpis">
+<div class="kpi"><small>动量年化收益</small><strong id="cagr"></strong></div>
+<div class="kpi"><small>动量最大回撤</small><strong id="drawdown"></strong></div>
+<div class="kpi"><small>相对等权年化收益差</small><strong id="spread"></strong></div>
+</div>
+<section>
+<h2 id="chart-title">累计净值</h2>
+<div class="legend" id="legend"></div>
+<canvas id="chart" width="1000" height="430" role="img" aria-label="策略历史净值或回撤曲线"></canvas>
+<p class="chartnote" id="chartnote">将指针移到曲线上查看当日数值。</p>
+</section>
+<section>
+<h2>策略对照</h2>
+<div class="scroll"><table id="metrics"></table></div>
+<p class="muted sp" id="uncertainty"></p>
+</section>
+<div class="tiles">
+<section>
+<h2>参数与成本敏感性</h2>
+<div class="scroll"><table id="grid"></table></div>
+<p class="muted sp">表内为年化收益。每侧成交费率 10 bp 即 0.10%。卖出与买入分别计费，绿色单元格为主设定。</p>
+</section>
+<section>
+<h2>年度收益</h2>
+<div class="scroll"><table id="annual"></table></div>
+</section>
+</div>
+<section>
+<h2>逐月信号</h2>
+<div class="controls">
+<label for="month">查看月份</label><select id="month"></select>
+</div>
+<div class="scroll sp"><table id="signal"></table></div>
+<p class="muted sp">策略在月末收盘比较过去 N 个交易日的复权价格涨幅。涨幅最高且为正的标的获得 100% 目标仓位，其余为零。若最高涨幅非正，次月持有现金。</p>
+</section>
+<section>
+<h2>数据巡检与执行假设</h2>
+<p id="quality"></p>
+<p class="sp">2015-04-13 和 2015-04-14 的中证 500 ETF 缺口与基金公告列出的暂停交易日期一致。上证综指快照还有一条 2015-03-27 的 OHLC 异常。上述日期均早于预热起点。上证综指只提供交易日期代理。</p>
+<p>模型假定次月首个交易日可按前复权开盘价成交，使用可分割份额和固定比例成本，现金利率设为零。结果会受复权口径、开盘成交能力和资产池事后选取影响。留出期按时间切出并继承此前持仓，属于一次历史切分。</p>
+</section>
+<footer>
+来源　<a href="https://www.ubiquant.com/website/about">九坤投资官网</a> ·
+<a href="https://job.hust.edu.cn/extxjh/581791873703758.do">宣讲岗位说明</a> ·
+<a href="https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh510300,day,2025-12-24,2026-01-10,100,qfq">腾讯行情示例</a> ·
+<a href="https://epaper.stcn.com/paper/zqsb/html/2015-04/07/content_671814.htm">南方基金停牌公告</a>
+</footer>
+<noscript>请启用浏览器 JavaScript 以查看互动报告。完整数值已保存在项目包的 results 目录。</noscript>
+</main>
+<script id="data" type="application/json">__REPORT_DATA__</script>
+<script>
+"use strict";
+const data = JSON.parse(document.querySelector("#data").textContent);
+const $ = id => document.getElementById(id);
+const methods = {
+  momentum: {label:"三 ETF 动量", color:"#145b45"},
+  equal: {label:"三 ETF 月度等权", color:"#c06419"},
+  hs300: {label:"沪深 300 ETF 持有", color:"#5265a2"},
+  gold: {label:"黄金 ETF 持有", color:"#877228"},
+  no_gold: {label:"两只股票 ETF 动量", color:"#963f73"}
+};
+const pct = v => `${(100 * Number(v)).toFixed(2)}%`;
+const start = {all:"2016-01-04", development:"2016-01-04", holdout:"2023-01-03"};
+const end = {all:"2025-12-31", development:"2022-12-30", holdout:"2025-12-31"};
+const table = (headers, rows) => "<thead><tr>" + headers.map(h=>`<th scope="col">${h}</th>`).join("") +
+  "</tr></thead><tbody>" + rows.map(r=>"<tr>"+r.map((value,i)=>i===0?`<th scope="row">${value}</th>`:`<td>${value}</td>`).join("")+"</tr>").join("") + "</tbody>";
+for (const [key, method] of Object.entries(methods)) {
+  const label = document.createElement("label");
+  const toggle = document.createElement("input");
+  toggle.type = "checkbox";
+  toggle.checked = key !== "no_gold";
+  toggle.value = key;
+  toggle.addEventListener("change", () => {
+    if (!$("legend").querySelector("input:checked")) toggle.checked = true;
+    redraw();
+  });
+  const swatch = document.createElement("i");
+  swatch.style.background = method.color;
+  label.append(toggle, swatch, document.createTextNode(method.label));
+  $("legend").append(label);
+}
+for (const signal of data.signals) {
+  const option = document.createElement("option");
+  option.value = signal.trade_date;
+  option.textContent = signal.trade_date.slice(0,7);
+  $("month").append(option);
+}
+const ctx = $("chart").getContext("2d");
+let chartState = null;
+let hoverIndex = null;
+function draw(exporting = false) {
+  const period = $("period").value, isReturn = $("mode").value === "nav";
+  const canvas = $("chart"), mobile = matchMedia("(max-width: 660px)").matches;
+  const width = 1000, height = mobile ? 585 : 430;
+  if (canvas.height !== height) canvas.height = height;
+  const graph = {left:80, right:970, top:54, bottom:height-48};
+  const all = Object.entries(data.series);
+  const enabled = [...$("legend").querySelectorAll("input:checked")].map(el => el.value);
+  const series = all.filter(([key]) => enabled.includes(key)).map(([key, values]) => {
+    const left = values.findIndex(d => d[0] >= start[period]);
+    const initial = left > 0 ? values[left-1][1] : 1;
+    let high = initial;
+    const rows = [[left > 0 ? values[left-1][0] : "期初", isReturn?1:0]];
+    for (const [day, nav] of values.slice(left)) {
+      if (day > end[period]) break;
+      high = Math.max(high, nav);
+      rows.push([day, isReturn ? nav / initial : nav / high - 1]);
+    }
+    return [key, rows];
+  });
+  const values = series.flatMap(([, rows]) => rows.map(([,v]) => v));
+  const min = isReturn ? Math.floor(Math.min(1,...values)*4)/4 : Math.floor(Math.min(-.05,...values)*20)/20;
+  const max = isReturn ? Math.ceil(Math.max(1.05,...values)*4)/4 : 0;
+  const n = series[0][1].length;
+  const x = i => graph.left + i * (graph.right-graph.left)/(n-1);
+  const y = v => graph.bottom - (v-min)*(graph.bottom-graph.top)/(max-min);
+  ctx.fillStyle="#fffcf5"; ctx.fillRect(0,0,width,height);
+  ctx.fillStyle="#172920"; ctx.font="600 20px system-ui,sans-serif";
+  const title = isReturn ? "累计净值" : "区间内回撤";
+  ctx.fillText(`${title}  |  ${start[period]} 至 ${end[period]}`, graph.left, 26);
+  ctx.font="14px system-ui,sans-serif";
+  for (let i=0; i<=5; i++) {
+    const value=min+i*(max-min)/5, yy=y(value);
+    ctx.strokeStyle="#d9e1d7"; ctx.lineWidth=1; ctx.beginPath();ctx.moveTo(graph.left,yy);ctx.lineTo(graph.right,yy);ctx.stroke();
+    ctx.fillStyle="#52635b";
+    ctx.fillText(isReturn ? value.toFixed(2) : `${Math.round(value*100)}%`, 18, yy+5);
+  }
+  const ticks = mobile ? 3 : 5;
+  for (let jump=0;jump<=ticks;jump++) {
+    const i=Math.round(jump*(n-1)/ticks), day=series[0][1][i][0];
+    ctx.fillStyle="#52635b";ctx.textAlign=jump===0?"left":jump===ticks?"right":"center";
+    ctx.fillText(i===0 ? start[period].slice(0,7) : day.slice(0,7),x(i),graph.bottom+26);
+  }
+  ctx.textAlign="left";
+  let lx=graph.left;
+  for (const [key, rows] of series) {
+    const {color,label} = methods[key];
+    ctx.strokeStyle=color;ctx.lineWidth=key==="momentum"?3:1.7;
+    ctx.beginPath();
+    rows.forEach(([,v],i)=>i===0?ctx.moveTo(x(i),y(v)):ctx.lineTo(x(i),y(v)));
+    ctx.stroke();
+    ctx.fillStyle=color; ctx.fillRect(lx,35,9,9);
+    ctx.fillStyle="#172920"; ctx.fillText(label,lx+14,44);
+    lx+=ctx.measureText(label).width+31;
+  }
+  if (!exporting && hoverIndex !== null) {
+    const i=Math.max(0,Math.min(n-1,hoverIndex));
+    ctx.strokeStyle="#52635b";ctx.lineWidth=1;ctx.setLineDash([4,4]);ctx.beginPath();
+    ctx.moveTo(x(i),graph.top);ctx.lineTo(x(i),graph.bottom);ctx.stroke();ctx.setLineDash([]);
+    $("chartnote").textContent = series[0][1][i][0] + "　" + series.map(([key, rows]) =>
+      methods[key].label+" "+(isReturn?rows[i][1].toFixed(3):pct(rows[i][1]))).join("　");
+  } else if (!exporting) {
+    $("chartnote").textContent="将指针移到曲线上查看当日数值。净值和回撤按所选区间起点重新计算。";
+  }
+  chartState={n,left:graph.left,right:graph.right};
+}
+function updateSignal() {
+  const signal = data.signals.find(s => s.trade_date === $("month").value);
+  const names = ["沪深 300 ETF","中证 500 ETF","黄金 ETF"];
+  const rows = ["510300","510500","518880"].map((code,i)=>[names[i],pct(signal["momentum_"+code]),pct(signal["weight_"+code])]);
+  rows.push(["现金","—",pct(signal.cash_weight)]);
+  $("signal").innerHTML = table(["信号日 "+signal.signal_date,"回看涨幅","目标仓位"],rows);
+}
+function redraw() {
+  const period=$("period").value;
+  const rows=data.metrics.filter(r=>r.period===period);
+  const focus=rows[0], base=rows[1];
+  $("cagr").textContent=pct(focus.cagr);
+  $("drawdown").textContent=pct(focus.max_drawdown);
+  $("spread").textContent=((focus.cagr-base.cagr)*100).toFixed(2)+" 个百分点";
+  $("headline").textContent="全样本中，三只 ETF 的动量轮动跑赢沪深 300 ETF 买入持有，但落后于同池月度等权。";
+  $("metrics").innerHTML=table(["策略","累计收益","年化收益","年化波动","最大回撤","夏普","年化双边换手"],
+    rows.map(r=>[methods[r.method].label,pct(r.total),pct(r.cagr),pct(r.volatility),pct(r.max_drawdown),r.sharpe.toFixed(2),pct(r.annual_turnover)]));
+  const ci=data.checks.holdout_bootstrap;
+  $("uncertainty").textContent=`留出期动量相对等权的年化复合收益为 ${pct(ci.relative_annualized)}，20 日成块重采样的 95% 区间为 ${pct(ci.lower)} 至 ${pct(ci.upper)}。`;
+  const grid=data.sensitivity.filter(r=>r.period===period);
+  $("grid").innerHTML=table(["回看窗口","0 bp","10 bp","25 bp","50 bp"],[20,60,120].map(window=>[`${window} 日`, ...grid.filter(r=>r.lookback===window).map(r=>pct(r.cagr))]));
+  $("grid").tBodies[0].rows[1].cells[2].className="hot";
+  const years= data.annual.filter(r=>r.method==="momentum"&&r.year>=Number(start[period].slice(0,4))&&r.year<=Number(end[period].slice(0,4))).map(r=>r.year);
+  $("annual").innerHTML=table(["年份","动量","等权","沪深 300","黄金"],years.map(year=>[year,...["momentum","equal","hs300","gold"].map(m=>pct(data.annual.find(r=>r.year===year&&r.method===m).total))]));
+  $("chart-title").textContent=$("mode").value==="nav"?"累计净值":"区间内回撤";
+  hoverIndex=null;
+  draw();
+}
+$("period").addEventListener("change",redraw);
+$("mode").addEventListener("change",redraw);
+$("month").addEventListener("change",updateSignal);
+$("chart").addEventListener("pointermove",event=>{
+  if (!chartState) return;
+  const rect=$("chart").getBoundingClientRect();
+  const x=(event.clientX-rect.left)*1000/rect.width;
+  hoverIndex=Math.round((x-chartState.left)/(chartState.right-chartState.left)*(chartState.n-1));
+  draw();
+});
+$("chart").addEventListener("pointerleave",()=>{hoverIndex=null;draw()});
+$("download").addEventListener("click",()=>{
+  draw(true);
+  const a=document.createElement("a");
+  a.download=`ETF-${$("period").value}-${$("mode").value}.png`;
+  a.href=$("chart").toDataURL("image/png");a.click();
+  draw();
+});
+window.addEventListener("resize",()=>draw());
+const q=data.quality;
+$("quality").textContent=`腾讯快照共 ${q.request_batches} 个请求批次与 ${q.identical_overlaps} 条一致的重叠记录。预热与研究窗口对齐 ${q.aligned_sessions} 个交易日，研究段实际回测 ${data.metrics[0].sessions} 个交易日。东方财富抽查沪深 300 ETF 的 ${q.secondary_audit.ohlc_match} 个交易日，开高低收一致。`;
+redraw();
+updateSignal();
+</script>
+</body>
+</html>
